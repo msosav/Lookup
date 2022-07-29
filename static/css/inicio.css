@@ -1,0 +1,16 @@
+.container {
+  border: 1px;
+  display: inline-block;
+  width: auto;
+  margin: auto;
+  text-align: left;
+}
+
+.buscador {
+  border: 1px;
+  color: blue;
+}
+
+.mas-buscados {
+  border: 1px;
+}
