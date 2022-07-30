@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Aplicacion.views import historial, inicio
+from Aplicacion.views import confirmacion, historial, inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inicio),
     path('historial/', historial),
+    path('confirmacion/', confirmacion),
 ]

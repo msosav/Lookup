@@ -4,8 +4,6 @@
   .buscador {
     padding: 10px;
     font-size: large;
-    border: 1px solid black;
-    color: rgb(89, 42, 165);
     height: 100vh;
   }
   .container-busqueda {
@@ -26,7 +24,8 @@
   <div class="buscador">
     <div class="container-busqueda">
       <h1>Buscar articulos</h1>
-      <form action="POST">
+      <form action="" method="POST">
+        {% csrf_token %}
         <div class="container-form">
           <input type="text" name="barra de busqueda" id="barra-de-busqueda" />
           <button type="submit">
