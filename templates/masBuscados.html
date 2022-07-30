@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<style>
+  .mas-buscados {
+    padding: 10px;
+    border: 1px solid black;
+    height: 100vh;
+  }
+</style>
+<html lang="en">
+  <body>
+    <div class="mas-buscados">
+      <h1>Mas buscados</h1>
+      <ul>
+        {% for producto in productos %}
+        <li>{{producto}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>

@@ -7,20 +7,10 @@
         background-color: beige;
       }
       .container {
-        padding: 30px;
+        padding: 20px;
         display: grid;
-        grid-template-columns: 2.2fr 0.1fr 0.7fr;
+        grid-template-columns: 2fr 0.1fr 0.7fr;
         background-color: beige;
-      }
-      .buscador {
-        padding: 10px;
-        font-size: large;
-        border: 1px solid black;
-        color: rgb(89, 42, 165);
-      }
-      .mas-buscados {
-        padding: 10px;
-        border: 1px solid black;
       }
     </style>
   </head>
@@ -28,23 +18,9 @@
     {% include "navBar.html" %}
     <div class="inicio">
       <div class="container">
-        <div class="buscador">
-          <p>Buscar</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, alias
-            sint ratione natus illum delectus sed quo vel repellat error odit,
-            neque praesentium eos cum ipsam eaque maiores suscipit minima!
-          </p>
-        </div>
+        <div>{% include "busquedaDeArticulos.html" %}</div>
         <div></div>
-        <div class="mas-buscados">
-          <h1>Mas buscados</h1>
-          <ul>
-            {% for producto in productos %}
-            <li>{{producto}}</li>
-            {% endfor %}
-          </ul>
-        </div>
+        <div>{% include "masBuscados.html" %}</div>
       </div>
     </div>
   </body>

@@ -1,0 +1,44 @@
+{% load static %}
+
+<style>
+  .buscador {
+    padding: 10px;
+    font-size: large;
+    border: 1px solid black;
+    color: rgb(89, 42, 165);
+    height: 100vh;
+  }
+  .container-busqueda {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2.2fr 3fr;
+  }
+  .container-form {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2.1fr 0.01fr 0.2fr;
+  }
+  .container-busqueda input {
+    border: 1px solid black;
+  }
+</style>
+<html>
+  <div class="buscador">
+    <div class="container-busqueda">
+      <h1>Buscar articulos</h1>
+      <form action="POST">
+        <div class="container-form">
+          <input type="text" name="barra de busqueda" id="barra-de-busqueda" />
+          <button type="submit">
+            <img src="{% static 'images/iconoBusqueda.svg'%}" alt="" />
+          </button>
+        </div>
+      </form>
+    </div>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, alias sint
+      ratione natus illum delectus sed quo vel repellat error odit, neque
+      praesentium eos cum ipsam eaque maiores suscipit minima!
+    </p>
+  </div>
+</html>
