@@ -78,8 +78,13 @@ WSGI_APPLICATION = 'Lookup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'lookupapp',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test"
+        }
+        
     }
 }
 
