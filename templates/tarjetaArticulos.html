@@ -1,0 +1,44 @@
+<style>
+  .container-articulos {
+    border: 1px solid black;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2.2fr 3fr;
+  }
+  .imagen-articulo {
+    width: "50";
+    height: "50";
+  }
+</style>
+
+<html>
+  <div class="container-articulos">
+    <div>
+      <h2>{{nombre}}</h2>
+      <p></p>
+      <p></p>
+      <h3>{{valoracion}}%</h3>
+      <p></p>
+      <p></p>
+      <h3>{{precio}} dolares</h3>
+      <p></p>
+      <p></p>
+      <a href="{{portal}}">Partal web donde está mas economico</a>
+      <p></p>
+      <p></p>
+      <ul>
+        {% for c in caracteristicas %}
+        <li>{{c}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div>
+      <img
+        src="{{imagen}}"
+        alt="imagen del producto"
+        width="500px"
+        height="500px"
+      />
+    </div>
+  </div>
+</html>
