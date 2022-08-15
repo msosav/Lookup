@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'Lookup.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'lookupapp',
+        'NAME': 'lookup',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test"
