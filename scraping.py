@@ -9,8 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
 
-digitos = [0,1,2,3,4,5,6,7,8,9]
-
 #Mercado libre
 def getMercadoLibre(item):
     driver.get('https://www.mercadolibre.com.co/')
@@ -22,16 +20,23 @@ def getMercadoLibre(item):
     product = driver.find_element(By.CLASS_NAME, "ui-search-result-image__element")
     product.click()
 
+    price = driver.find_element(By.CLASS_NAME, "andes-money-amount__fraction").text
+    
     review = driver.find_element(By.CLASS_NAME, "ui-pdp-review__ratings")
     review.click()
 
     rating = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__average").text
-    people = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__label").text
+    #people = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__label").text
     
-    #votes = people[people.index()]
+    
+    #votes = people[15:people.index()]
+    #print(votes)
 
+    print(price)
     print(rating)
-    print(people)
+    
+
+
 
 def getAliexpress(item):
     driver.get('https://es.aliexpress.com/?gatewayAdapt=glo2esp')
@@ -56,5 +61,5 @@ def main():
     getMercadoLibre("iphone 11")
 
 main()
-
 driver.quit()
+
