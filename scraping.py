@@ -23,7 +23,7 @@ def getMercadoLibre(item):
     product = driver.find_element(By.CLASS_NAME, "ui-search-result-image__element")
     product.click()
 
-    #price = driver.find_element(By.CLASS_NAME, "andes-money-amount__fraction").text
+    price = driver.find_element(By.CLASS_NAME, "andes-money-amount__fraction").text
     
     review = driver.find_element(By.CLASS_NAME, "ui-pdp-review__ratings")
     review.click()
@@ -35,7 +35,7 @@ def getMercadoLibre(item):
     #votes = people[15:people.index()]
     #print(votes)
 
-    return rating
+    return rating, price
 
 
 
