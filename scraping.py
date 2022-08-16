@@ -6,11 +6,14 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-service = Service(executable_path=ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+#service = Service(executable_path=ChromeDriverManager().install())
+#driver = webdriver.Chrome(service=service)
 
 #Mercado libre
 def getMercadoLibre(item):
+    service = Service(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+
     driver.get('https://www.mercadolibre.com.co/')
 
     search_box = driver.find_element(by=By.NAME, value="as_word")
@@ -20,23 +23,26 @@ def getMercadoLibre(item):
     product = driver.find_element(By.CLASS_NAME, "ui-search-result-image__element")
     product.click()
 
-    price = driver.find_element(By.CLASS_NAME, "andes-money-amount__fraction").text
+    #price = driver.find_element(By.CLASS_NAME, "andes-money-amount__fraction").text
     
     review = driver.find_element(By.CLASS_NAME, "ui-pdp-review__ratings")
     review.click()
 
     rating = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__average").text
     #people = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__label").text
-    
+    driver.quit()
     
     #votes = people[15:people.index()]
     #print(votes)
 
-    return price, rating
+    return rating
 
 
 
 def getAliexpress(item):
+    service = Service(executable_path=ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+
     driver.get('https://es.aliexpress.com/?gatewayAdapt=glo2esp')
 
     search_box = driver.find_element(by=By.NAME, value="SearchText")
@@ -51,12 +57,12 @@ def getAliexpress(item):
     rating = float(driver.find_element(By.CLASS_NAME, 'overview-rating-average').text)
     people = driver.find_element(By.PARTIAL_LINK_TEXT("Valoraciones")).text
 
-
+    driver.quit()
     print(rating)
     print(people)
 
-def web_scrapping(item):
-    return getMercadoLibre(item)
+#def web_scrapping(item):
+#    return getMercadoLibre(item)
 
 
 
