@@ -32,9 +32,7 @@ def getMercadoLibre(item):
     #votes = people[15:people.index()]
     #print(votes)
 
-    print(price)
-    print(rating)
-    
+    return price, rating
 
 
 
@@ -57,9 +55,9 @@ def getAliexpress(item):
     print(rating)
     print(people)
 
-def main():
-    getMercadoLibre("iphone 11")
+def web_scrapping(item):
+    return getMercadoLibre(item)
 
-main()
-driver.quit()
+
+
 
