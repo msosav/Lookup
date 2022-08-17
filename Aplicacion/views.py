@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from scraping import getMercadoLibre
-
+from Aplicacion.models import Producto
 # Create your views here.
 def inicio(request):
     productos = ["Mac", "IPhone 13", "Jordan Retro XI"]
@@ -16,6 +16,8 @@ def inicio(request):
         rating = lista[0]
         precio = lista[1]
         #rating = lista[0]
+        p = Producto(nombre = nombre, price = precio, rating = rating) #Guardar en la base de datos
+        p.save()
         return render(request, 'inicio.html', {"productos":productos, "nombre":nombre,
                             "valoracion":rating, "precio":precio, "portal":portal,
                             "imagen":imagen, "caracteristicas":caracteristicas})

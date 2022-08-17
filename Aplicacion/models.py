@@ -4,5 +4,5 @@ from django.db import models
 
 class Producto (models.Model):
     nombre = models.CharField(max_length=50)
-    price = models.FloatField()
-    rating = models.FloatField()
+    price = models.CharField(max_length=50)
+    rating = models.CharField(max_length=50)
