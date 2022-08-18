@@ -22,6 +22,8 @@ def inicio(request):
         precio = lista[1]
         url = lista[2]
         analiticas = []
+        p = Producto(nombre = nombre, price = precio, rating = rating) #Guardar en la base de datos
+        p.save()
         for documentos in collection.find():
             if collection.count_documents({"nombre":documentos["nombre"]}) >= 1:
                 if documentos["nombre"].lower() not in analiticas:
@@ -30,8 +32,6 @@ def inicio(request):
         for elemento in range(0,len(analiticas)):
             analiticas[elemento] = analiticas[elemento].capitalize()
         top_5 = analiticas[0:5]
-        p = Producto(nombre = nombre, price = precio, rating = rating) #Guardar en la base de datos
-        p.save()
         return render(request, 'inicio.html', {"productos":top_5, "nombre":nombre,
                             "valoracion":rating, "precio":precio, "portal":url,
                             "imagen":imagen, "caracteristicas":caracteristicas})
