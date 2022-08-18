@@ -27,6 +27,8 @@ def inicio(request):
                 if documentos["nombre"].lower() not in analiticas:
                     analiticas.append(documentos["nombre"])
         analiticas.sort()
+        for elemento in range(0,len(analiticas)):
+            analiticas[elemento] = analiticas[elemento].capitalize()
         top_5 = analiticas[0:5]
         p = Producto(nombre = nombre, price = precio, rating = rating) #Guardar en la base de datos
         p.save()
