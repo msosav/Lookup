@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<style>
+  .container-articulos {
+    border: 1px solid black;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2.2fr 3fr;
+  }
+  .imagen-articulo {
+    width: "50";
+    height: "50";
+  }
+</style>
+<html>
+  <body>
+    <h2>El articulo buscado es malo, esta es una mejor opción</h2>
+    <div class="container-articulos">
+      <div>
+        <h2>{{nombre}}</h2>
+        <p></p>
+        <p></p>
+        <h3>{{valoracion}} Estrellas</h3>
+        <p></p>
+        <p></p>
+        <h3>{{precio}} Pesos</h3>
+        <p></p>
+        <p></p>
+        <a href="{{portal}}">Portal web donde está mas económico</a>
+        <p></p>
+        <p></p>
+        <ul>
+          {% for c in caracteristicas %}
+          <li>{{c}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <img
+          src="{{imagen}}"
+          alt="imagen del producto"
+          width="500px"
+          height="500px"
+        />
+      </div>
+    </div>
+  </body>
 </html>
