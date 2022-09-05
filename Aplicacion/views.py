@@ -1,3 +1,4 @@
+from pickle import FALSE
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from scraping import getMercadoLibre
@@ -33,12 +34,22 @@ def inicio(request):
         rating = lista[0]
         precio = lista[1]
         url = lista[2]
+        if float(rating) < 4.6:
+            recomendado = False
+        else:
+            recomendado = True
         # Guardar en la base de datos
-        p = Producto(nombre=nombre, price=precio, rating=rating)
+        p = Producto(nombre=nombre, price=precio,
+                     rating=rating, recomendado=recomendado)
         p.save()
-        return render(request, 'inicio.html', {"productos": top_5, "nombre": nombre,
-                                               "valoracion": rating, "precio": precio, "portal": url,
-                                               "imagen": imagen, "caracteristicas": caracteristicas})
+        if (recomendado == False):
+            return render(request, 'inicio.html', {"productos": top_5, "nombre2": "funciona",
+                                                   "valoracion2": rating, "precio2": precio, "portal2": url,
+                                                   "imagen2": imagen, "caracteristicas2": caracteristicas, })
+        else:
+            return render(request, 'inicio.html', {"productos": top_5, "nombre": nombre,
+                                                   "valoracion": rating, "precio": precio, "portal": url,
+                                                   "imagen": imagen, "caracteristicas": caracteristicas, })
     return render(request, 'inicio.html', {"productos": top_5})
 
 
