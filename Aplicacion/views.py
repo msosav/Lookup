@@ -1,9 +1,9 @@
-from pickle import FALSE
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from scraping import getMercadoLibre
 from Aplicacion.models import Producto
 from pymongo import MongoClient
+from funciones import analiticas
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -13,17 +13,8 @@ collection = db["Aplicacion_producto"]
 
 # Create your views here.
 
-
 def inicio(request):
-    analiticas = []
-    for documentos in collection.find():
-        if collection.count_documents({"nombre": documentos["nombre"]}) >= 1:
-            if documentos["nombre"].lower() not in analiticas:
-                analiticas.append(documentos["nombre"])
-    analiticas.sort()
-    for elemento in range(0, len(analiticas)):
-        analiticas[elemento] = analiticas[elemento].capitalize()
-    top_5 = analiticas[0:5]
+    top5 = analiticas()
 
     imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
     caracteristicas = ["Pantalla Super Retina XDR de 6,1 pulgadas",
@@ -34,23 +25,44 @@ def inicio(request):
         rating = lista[0]
         precio = lista[1]
         url = lista[2]
+        electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
+        electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
+        hogar = ["silla", "mesa", "cama"]
         if float(rating) < 4.6:
             recomendado = False
         else:
             recomendado = True
-        # Guardar en la base de datos
-        p = Producto(nombre=nombre, price=precio,
-                     rating=rating, recomendado=recomendado)
-        p.save()
+
+        for elemento in range(len(electronicos)):
+            if nombre.lower().__contains__(electronicos[elemento]):
+                categoria_final = "Electronicos"
+                p = Producto(nombre=nombre, price=precio,
+                     rating=rating, recomendado=recomendado, categoria=categoria_final)
+                p.save()
+
+        for elemento in range(len(electrodomesticos)):
+            if nombre.lower().__contains__(electrodomesticos[elemento]):
+                categoria_final = "Electrodomesticos"
+                p = Producto(nombre=nombre, price=precio,
+                     rating=rating, recomendado=recomendado, categoria=categoria_final)
+                p.save()
+        
+        for elemento in range(len(hogar)):
+            if nombre.lower().__contains__(hogar[elemento]):
+                categoria_final = "Hogar"
+                p = Producto(nombre=nombre, price=precio,
+                     rating=rating, recomendado=recomendado, categoria=categoria_final)
+                p.save()
+        
         if (recomendado == False):
-            return render(request, 'inicio.html', {"productos": top_5, "nombre2": "funciona",
+            return render(request, 'inicio.html', {"productos": top5, "nombre2": "funciona",
                                                    "valoracion2": rating, "precio2": precio, "portal2": url,
                                                    "imagen2": imagen, "caracteristicas2": caracteristicas, })
         else:
-            return render(request, 'inicio.html', {"productos": top_5, "nombre": nombre,
+            return render(request, 'inicio.html', {"productos": top5, "nombre": nombre,
                                                    "valoracion": rating, "precio": precio, "portal": url,
                                                    "imagen": imagen, "caracteristicas": caracteristicas, })
-    return render(request, 'inicio.html', {"productos": top_5})
+    return render(request, 'inicio.html', {"productos": top5})
 
 
 def historial(request):

@@ -9,3 +9,4 @@ class Producto (models.Model):
     price = models.CharField(max_length=50)
     rating = models.CharField(max_length=50)
     recomendado = models.BooleanField(default=True)
+    categoria = models.CharField(max_length=50, default="N/A")
