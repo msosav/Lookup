@@ -14,15 +14,6 @@ collection = db["Aplicacion_producto"]
 # Create your views here.
 
 def inicio(request):
-    #analiticas = []
-    #for documentos in collection.find():
-        #if collection.count_documents({"nombre": documentos["nombre"]}) >= 1:
-            #if documentos["nombre"].lower() not in analiticas:
-                #analiticas.append(documentos["nombre"])
-    #analiticas.sort()
-    #for elemento in range(0, len(analiticas)):
-        #analiticas[elemento] = analiticas[elemento].capitalize()
-    #top_5 = analiticas[0:5]
     top5 = analiticas()
 
     imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
