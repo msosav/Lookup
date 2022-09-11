@@ -3,19 +3,21 @@
   .mas-buscados {
     padding: 10px;
     border: 1px solid black;
-    height: 100vh;
-    background-color: rgb(111, 148, 168);
+    height: auto;
+    background-color: #f9aad0;
+    color: #19082d;
+    border-radius: 5px;
   }
 </style>
 <html lang="en">
   <body>
     <div class="mas-buscados">
-      <h1>Más buscados</h1>
-      <ul>
+      <h1 style="text-align: center; font-weight: bold">Más buscados</h1>
+      <ol style="font-size: x-large">
         {% for producto in productos %}
         <li>{{producto}}</li>
         {% endfor %}
-      </ul>
+      </ol>
     </div>
   </body>
 </html>

@@ -3,27 +3,34 @@
 <html lang="en">
   <head>
     <title>Lookup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       .inicio {
-        background-color: rgb(158, 166, 221);
+        font-family: Khand;
+        background-color: #18072b;
       }
-      .container {
+      .inicio2 {
         padding: 20px;
         display: grid;
-        grid-template-columns: 2fr 0.1fr 0.7fr;
-        background-color: rgb(158, 166, 221);
       }
     </style>
     <link rel="icon" href="{% static '/images/logo.svg' %}" />
   </head>
-  <body>
+  <body class="inicio">
     {% include "navBar.html" %}
-    <div class="inicio">
-      <div class="container">
-        <div>{% include "busquedaDeArticulos.html" %}</div>
-        <div></div>
-        <div>{% include "masBuscados.html" %}</div>
+    <div class="inicio2">
+      <div class="row">
+        <div class="col-md-6 col-xl-8">
+          {% include "busquedaDeArticulos.html" %}
+        </div>
+        <div class="col-md-6 col-xl-4">{% include "masBuscados.html" %}</div>
       </div>
     </div>
+    <script src="../static/js/bootstrap.min.js"></script>
   </body>
 </html>
