@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,14 +7,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirmacion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="{% static '/images/logo.svg' %}" />
+    <style>
+      .inicio {
+        font-family: Khand;
+        background-color: #18072b;
+      }
+      .inicio2 {
+        padding: 20px;
+        display: grid;
+      }
+      .container-busqueda {
+        padding: 20px;
+        border: 7px solid #ad53a6;
+        color: white;
+      }
+    </style>
   </head>
-  <body>
-    {% include 'navBar.html' %}
-    <h1>La categoria fue {{categoria}}</h1>
-    <ul>
-      {% for producto in productos %}
-      <li>{{producto}}</li>
-      {% endfor %}
-    </ul>
+  <body class="inicio">
+    {% include "navBar.html" %}
+    <div class="inicio2">
+      <div class="row">
+        <div class="col-md-6 col-xl-8 container-busqueda">
+          <h1>La categoria fue {{categoria}}</h1>
+          {% include "tarjetaCategorias.html" %}
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div>{% include "categorias.html" %}</div>
+          <div style="margin-top: 20px">{% include "masBuscados.html" %}</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

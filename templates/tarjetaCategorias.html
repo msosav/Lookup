@@ -1,0 +1,22 @@
+<style>
+  .container-categorias {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
+    text-align: center;
+  }
+  .container-producto {
+    padding: 10px;
+    background-color: #ad53a6;
+    border: 5px solid white;
+    border-radius: 5px;
+  }
+</style>
+<html>
+  <div class="container-categorias">
+    {% for producto in productos_de_la_categoria %}
+    <div class="container-producto">{{producto}}</div>
+    <div></div>
+    {% endfor %}
+  </div>
+</html>

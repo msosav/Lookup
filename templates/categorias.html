@@ -13,6 +13,10 @@
     color: #19082d;
     border-radius: 5px;
   }
+  .boton {
+    text-align: center;
+    padding: 10px;
+  }
 </style>
 <html>
   <div class="categorias">
@@ -24,7 +28,15 @@
         <option value="{{categoria}}">{{categoria}}</option>
         {% endfor %}
       </select>
-      <button type="submit">Buscar</button>
+      <div class="boton">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="background-color: #ad53a6; border: #ad53a6"
+        >
+          Buscar
+        </button>
+      </div>
     </form>
   </div>
 </html>
