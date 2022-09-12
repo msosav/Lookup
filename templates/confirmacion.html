@@ -8,6 +8,11 @@
   </head>
   <body>
     {% include 'navBar.html' %}
-    <h1>Funciona :)</h1>
+    <h1>La categoria fue {{categoria}}</h1>
+    <ul>
+      {% for producto in productos %}
+      <li>{{producto}}</li>
+      {% endfor %}
+    </ul>
   </body>
 </html>

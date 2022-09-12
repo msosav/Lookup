@@ -16,7 +16,8 @@
 </style>
 <html>
   <div class="categorias">
-    <form action="" method="GET">
+    <form action="{% url 'categoria' %}" method="POST">
+      {% csrf_token %}
       <select class="form-select" name="categorias">
         <option selected>Categorías</option>
         {% for categoria in categorias %}

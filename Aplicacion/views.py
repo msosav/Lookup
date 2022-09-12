@@ -1,10 +1,8 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from categorias import categoriaDelProducto
 from scraping import getMercadoLibre
 from Aplicacion.models import Producto
 from pymongo import MongoClient
-from funciones import analiticas
+from funciones import analiticas, productosPorCategoria, categoriaDelProducto
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -26,7 +24,7 @@ def inicio(request):
     electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
-    categorias = ["electronicos", "electrodomesticos", "hogar"]
+    categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
     categorias2 = [electronicos, electrodomesticos, hogar]
     if request.method == 'POST':
         nombre = request.POST.get("producto_buscado").capitalize()
@@ -50,10 +48,6 @@ def inicio(request):
                     "valoracion": rating, "precio": precio, "portal": url,
                     "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
             return render(request, 'inicio.html', dicc)
-
-    if request.method == 'GET':
-        categoria = request.GET.get("categorias")
-        return categoriaBuscada(request, categoria)
     return render(request, 'inicio.html', {"productos": top5, "categorias": categorias})
 
 
@@ -65,5 +59,9 @@ def confirmacion(request):
     return render(request, 'confirmacion.html')
 
 
-def categoriaBuscada(request, categoria):
-    return render(request, 'confirmacion.html')
+def categoriaBuscada(request):
+    if request.method == 'POST':
+        categoria = request.POST.get("categorias")
+    productos = productosPorCategoria(categoria)
+    dicc = {"productos": productos, "categoria": categoria}
+    return render(request, 'confirmacion.html', dicc)

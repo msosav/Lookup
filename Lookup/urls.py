@@ -23,5 +23,5 @@ urlpatterns = [
     path('', inicio),
     path('historial/', historial),
     path('confirmacion/', confirmacion),
-    path('categoria/', categoriaBuscada)
+    path('categoria/', categoriaBuscada, name="categoria")
 ]
