@@ -27,7 +27,12 @@ def productosPorCategoria(categoria):
     return lista
 
 
-def categoriaDelProducto(nombre, categorias):
+def categoriaDelProducto(nombre):
+    electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
+    electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
+    hogar = ["silla", "mesa", "cama"]
+    categorias = [electronicos, electrodomesticos, hogar]
+
     contador = 0
     for categoria in categorias:
         for elemento in categoria:
@@ -43,3 +48,14 @@ def categoriaDelProducto(nombre, categorias):
                     break
         contador += 1
     return categoria_final
+
+
+def recomendarProducto(categoria, precio):
+    for productos in collection.find():
+        if productos["categoria"] == categoria:
+            if (productos["price"] <= precio + 700):
+                if (productos["recomendado"] == True):
+                    return (productos["nombre"], productos["price"],
+                            productos["rating"], productos["url"],
+                            productos["imagen"])
+    return "No hay productos que recomendar"

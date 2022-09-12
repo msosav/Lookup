@@ -2,7 +2,7 @@ from django.shortcuts import render
 from scraping import getMercadoLibre
 from Aplicacion.models import Producto
 from pymongo import MongoClient
-from funciones import analiticas, productosPorCategoria, categoriaDelProducto
+from funciones import analiticas, productosPorCategoria, categoriaDelProducto, recomendarProducto
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -15,6 +15,12 @@ collection = db["Aplicacion_producto"]
 # Variables globales
 top5 = analiticas()
 categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
+imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
+caracteristicas = ["Pantalla Super Retina XDR de 6,1 pulgadas",
+                   "El modo Cine añade poca profundidad de campo y cambia el enfoque automáticamente en los vídeos",
+                   "Sistema avanzado de cámara dual de 12 Mpx con gran angular y ultra gran angular",
+                   "Estilos Fotográficos, HDR Inteligente 4",
+                   "modo Noche y grabación de vídeo en 4K HDR con Dolby Vision"]
 
 
 def inicio(request):
@@ -27,33 +33,33 @@ def historial(request):
 
 
 def productoBuscado(request):
-    global top5, categorias
-    imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
-    caracteristicas = ["Pantalla Super Retina XDR de 6,1 pulgadas",
-                       "El modo Cine añade poca profundidad de campo y cambia el enfoque automáticamente en los vídeos",
-                       "Sistema avanzado de cámara dual de 12 Mpx con gran angular y ultra gran angular",
-                       "Estilos Fotográficos, HDR Inteligente 4",
-                       "modo Noche y grabación de vídeo en 4K HDR con Dolby Vision"]
-    electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
-    electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
-    hogar = ["silla", "mesa", "cama"]
-    categorias2 = [electronicos, electrodomesticos, hogar]
+    global top5, categorias, imagen, caracteristicas
     if request.method == 'POST':
         nombre = request.POST.get("producto_buscado").capitalize()
         lista = getMercadoLibre(nombre)
-        rating = lista[0]
+        rating = 4.8
         precio = lista[1]
+        precio_final = int(precio.replace('.', ''))
         url = lista[2]
-        recomendado = True
-        categoria_final = categoriaDelProducto(nombre, categorias2)
-        p = Producto(nombre=nombre, price=precio,
+        if rating < 4.5:
+            recomendado = False
+        else:
+            recomendado = True
+        categoria_final = categoriaDelProducto(nombre)
+        p = Producto(nombre=nombre, price=precio_final,
                      rating=rating, recomendado=recomendado,
-                     categoria=categoria_final)
+                     categoria=categoria_final, url=url, imagen=imagen)
         p.save()
         if (recomendado == False):
-            dicc = {"productos": top5, "nombre2": "funciona",
-                    "valoracion2": rating, "precio2": precio, "portal2": url,
-                    "imagen2": imagen, "caracteristicas2": caracteristicas, "categorias": categorias}
+            lista = recomendarProducto(categoria_final, precio_final)
+            nombre2 = lista[0]
+            precio2 = lista[1]
+            rating2 = lista[2]
+            url2 = lista[3]
+            imagen2 = lista[4]
+            dicc = {"productos": top5, "nombre2": nombre2,
+                    "valoracion2": rating2, "precio2": precio2, "portal2": url2,
+                    "imagen2": imagen2, "caracteristicas2": caracteristicas, "categorias": categorias}
             return render(request, 'inicio.html', dicc)
         else:
             dicc = {"productos": top5, "nombre": nombre,
