@@ -1,14 +1,19 @@
-<!DOCTYPE html>
 {% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Lookup</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categorías</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="{% static '/images/logo.svg' %}" />
     <style>
       .inicio {
         font-family: Khand;
@@ -18,15 +23,20 @@
         padding: 20px;
         display: grid;
       }
+      .container-busqueda {
+        padding: 20px;
+        border: 7px solid #ad53a6;
+        color: white;
+      }
     </style>
-    <link rel="icon" href="{% static '/images/logo.svg' %}" />
   </head>
   <body class="inicio">
     {% include "navBar.html" %}
     <div class="inicio2">
       <div class="row">
-        <div class="col-md-6 col-xl-8">
-          {% include "busquedaDeArticulos.html" %}
+        <div class="col-md-6 col-xl-8 container-busqueda">
+          <h1>En {{categoria}}...</h1>
+          {% include "tarjetaCategorias.html" %}
         </div>
         <div class="col-md-6 col-xl-4">
           <div>{% include "categorias.html" %}</div>
@@ -34,6 +44,5 @@
         </div>
       </div>
     </div>
-    <script src="../static/js/bootstrap.min.js"></script>
   </body>
 </html>

@@ -14,8 +14,7 @@
   }
   .container-busqueda {
     padding: 20px;
-    border: 7px double #ad53a6;
-    border-radius: 5px;
+    border: 7px solid #ad53a6;
   }
   .container-form {
     padding: 10px;
@@ -44,7 +43,7 @@
         <h1 class="titulo" style="font-weight: bold">
           Buscar art&iacute;culos
         </h1>
-        <form action="" method="POST">
+        <form action="{% url 'producto' %}" method="POST">
           {% csrf_token %}
           <div class="container-form">
             <div class="input-group">
@@ -62,7 +61,6 @@
           </div>
         </form>
       </div>
-
       <div>
         {% if nombre2 %} {% include 'recomendacionDeArticulos.html' %} {%endif%}
         {% if nombre %} {% include 'tarjetaArticulos.html' %} {% endif%}
