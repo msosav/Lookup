@@ -27,16 +27,18 @@
           <li class="nav-item"></li>
           <li class="nav-item"></li>
         </ul>
-        <a class="navbar-brand d-flex align-items-center" href="/"
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{% url 'inicio' %}"
           ><span style="font-size: xx-large">Lookup</span></a
         >
         <div class="collapse navbar-collapse" id="navcol-1">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link active" href="/">Inicio</a>
+              <a class="nav-link active" href="{% url 'inicio' %}">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link">Historial</a>
+              <a class="nav-link" href="{% url 'historial' %}">Historial</a>
             </li>
             <li class="nav-item"></li>
           </ul>

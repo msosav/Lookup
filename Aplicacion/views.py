@@ -12,9 +12,22 @@ collection = db["Aplicacion_producto"]
 
 # Create your views here.
 
+# Variables globales
+top5 = analiticas()
+categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
+
 
 def inicio(request):
-    top5 = analiticas()
+    global top5, categorias
+    return render(request, 'inicio.html', {"productos": top5, "categorias": categorias})
+
+
+def historial(request):
+    return render(request, 'historial.html')
+
+
+def productoBuscado(request):
+    global top5, categorias
     imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
     caracteristicas = ["Pantalla Super Retina XDR de 6,1 pulgadas",
                        "El modo Cine añade poca profundidad de campo y cambia el enfoque automáticamente en los vídeos",
@@ -24,7 +37,6 @@ def inicio(request):
     electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
-    categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
     categorias2 = [electronicos, electrodomesticos, hogar]
     if request.method == 'POST':
         nombre = request.POST.get("producto_buscado").capitalize()
@@ -48,11 +60,6 @@ def inicio(request):
                     "valoracion": rating, "precio": precio, "portal": url,
                     "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
             return render(request, 'inicio.html', dicc)
-    return render(request, 'inicio.html', {"productos": top5, "categorias": categorias})
-
-
-def historial(request):
-    return render(request, 'historial.html')
 
 
 def confirmacion(request):
