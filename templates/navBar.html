@@ -7,51 +7,54 @@
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
     crossorigin="anonymous"
   />
-  <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #c0e1eb">
+  <body style="font-size: larger">
+    <nav
+      class="navbar navbar-light navbar-expand-md py-3"
+      style="background-color: #ffffff"
+    >
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img
             src="{% static 'images/logo.svg' %}"
             alt=""
-            width="30"
-            height="24"
+            width="50"
+            height="50"
             class="d-inline-block align-text-top"
           />
-          Lookup
         </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <ul class="navbar-nav">
+          <li class="nav-item"></li>
+          <li class="nav-item"></li>
+          <li class="nav-item"></li>
+        </ul>
+        <a class="navbar-brand d-flex align-items-center" href="/"
+          ><span style="font-size: xx-large">Lookup</span></a
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navcol-1">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/">Inicio</a>
+            </li>
+            <li class="nav-item"><a class="nav-link">Historial</a></li>
+            <li class="nav-item"></li>
+          </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              <a class="nav-link active">Iniciar sesi&oacute;n</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link">Historial</a>
-            </li>
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
           </ul>
+          <button
+            type="button"
+            class="btn"
+            style="background-color: #f9aad0; font-size: large"
+          >
+            Registrarse
+          </button>
         </div>
-        <button type="button" class="btn btn-link">
-          Iniciar sesi&oacute;n
-        </button>
-        <button type="button" class="btn btn-secondary">Registrarse</button>
       </div>
     </nav>
-    <!-- JavaScript Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-      crossorigin="anonymous"
-    ></script>
+    <script src="../static/js/bootstrap.min.js"></script>
   </body>
 </html>

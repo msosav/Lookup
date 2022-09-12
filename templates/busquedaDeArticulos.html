@@ -9,14 +9,13 @@
 
 <style>
   .buscador {
-    padding: 10px;
     font-size: large;
     height: 100vh;
   }
   .container-busqueda {
     padding: 20px;
-    display: grid;
-    grid-template-columns: 2.2fr 3fr;
+    border: 7px double #ad53a6;
+    border-radius: 5px;
   }
   .container-form {
     padding: 10px;
@@ -29,30 +28,45 @@
   .boton-de-busqueda {
     border-radius: 5px;
   }
+  .titulo {
+    font-size: 7ch;
+    color: white;
+  }
+  .container-busqueda-y-titulo {
+    display: grid;
+    grid-template-columns: 2.2fr 3fr;
+  }
 </style>
 <html>
   <div class="buscador">
     <div class="container-busqueda">
-      <h1>Buscar articulos</h1>
-      <form action="" method="POST">
-        {% csrf_token %}
-        <div class="container-form">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              id="autoSizingInput"
-              placeholder="Buscar artículo"
-              name="producto_buscado"
-            />
-            <button type="submit" class="boton-de-busqueda">
-              <img src="{% static 'images/iconoBusqueda.svg'%}" alt="" />
-            </button>
+      <div class="container-busqueda-y-titulo">
+        <h1 class="titulo" style="font-weight: bold">
+          Buscar art&iacute;culos
+        </h1>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="container-form">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id="autoSizingInput"
+                placeholder="Introduce el artículo a buscar, ej. iPhone 13"
+                name="producto_buscado"
+              />
+              <button type="submit" class="boton-de-busqueda">
+                <img src="{% static 'images/iconoBusqueda.svg'%}" alt="" />
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+
+      <div>
+        {% if nombre2 %} {% include 'recomendacionDeArticulos.html' %} {%endif%}
+        {% if nombre %} {% include 'tarjetaArticulos.html' %} {% endif%}
+      </div>
     </div>
-    {% if nombre2 %} {% include 'recomendacionDeArticulos.html' %} {% endif %}
-    {% if nombre %} {% include 'tarjetaArticulos.html' %} {% endif %}
   </div>
 </html>
