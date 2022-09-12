@@ -12,5 +12,5 @@ def categoriaDelProducto(nombre, categorias):
                 if contador == 2:
                     categoria_final = "Hogar"
                     break
-    contador += 1
+        contador += 1
     return categoria_final

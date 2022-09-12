@@ -35,21 +35,25 @@ def inicio(request):
         precio = lista[1]
         url = lista[2]
         recomendado = True
-
         categoria_final = categoriaDelProducto(nombre, categorias2)
-
         p = Producto(nombre=nombre, price=precio,
-                     rating=rating, recomendado=recomendado, categoria=categoria_final)
+                     rating=rating, recomendado=recomendado,
+                     categoria=categoria_final)
         p.save()
-
         if (recomendado == False):
-            return render(request, 'inicio.html', {"productos": top5, "nombre2": "funciona",
-                                                   "valoracion2": rating, "precio2": precio, "portal2": url,
-                                                   "imagen2": imagen, "caracteristicas2": caracteristicas, "categorias": categorias})
+            dicc = {"productos": top5, "nombre2": "funciona",
+                    "valoracion2": rating, "precio2": precio, "portal2": url,
+                    "imagen2": imagen, "caracteristicas2": caracteristicas, "categorias": categorias}
+            return render(request, 'inicio.html', dicc)
         else:
-            return render(request, 'inicio.html', {"productos": top5, "nombre": nombre,
-                                                   "valoracion": rating, "precio": precio, "portal": url,
-                                                   "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias})
+            dicc = {"productos": top5, "nombre": nombre,
+                    "valoracion": rating, "precio": precio, "portal": url,
+                    "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
+            return render(request, 'inicio.html', dicc)
+
+    if request.method == 'GET':
+        categoria = request.GET.get("categorias")
+        return categoriaBuscada(request, categoria)
     return render(request, 'inicio.html', {"productos": top5, "categorias": categorias})
 
 
@@ -58,4 +62,8 @@ def historial(request):
 
 
 def confirmacion(request):
+    return render(request, 'confirmacion.html')
+
+
+def categoriaBuscada(request, categoria):
     return render(request, 'confirmacion.html')
