@@ -2,7 +2,7 @@
   .container-categorias {
     padding: 20px;
     display: grid;
-    grid-template-columns: 3fr 0.5fr 3fr 0.5fr 3fr 0.5fr;
+    grid-template-columns: 3fr 3fr 3fr;
     text-align: center;
   }
   .container-producto {
@@ -15,8 +15,9 @@
 <html>
   <div class="container-categorias">
     {% for producto in productos_de_la_categoria %}
-    <div class="container-producto">{{producto}}</div>
-    <div></div>
+    <span style="padding: 10px">
+      <div class="container-producto">{{producto}}</div></span
+    >
     {% endfor %}
   </div>
 </html>
