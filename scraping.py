@@ -16,7 +16,7 @@ def busqueda_amazon(producto):
     options = Options()
     options.headless = True 
     service = Service(executable_path=ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service,options=options )
+    driver = webdriver.Chrome(service=service,)
     driver.get(f'https://www.amazon.com/s?k={producto}')
     
     
@@ -71,7 +71,7 @@ def busqueda_amazon(producto):
     product_price = float(product_price_raw[product_price_raw.index("$") + 1:])
     product_rating = float(product_rating_raw[0: product_rating_raw.index("d")-1])
 
-    return product_rating, product_price, URL
+    return product_rating, product_price*4000, URL
 
 
 
@@ -80,7 +80,7 @@ def busqueda_mercadolibre(producto):
     options = Options()
     options.headless = True 
     service = Service(executable_path=ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service,options=options)
+    driver = webdriver.Chrome(service=service,)
     driver.get(f'https://listado.mercadolibre.com.co/{producto}_NoIndex_True#applied_filter_id%3DITEM_CONDITION%26applied_filter_name%3DCondición%26applied_filter_order%3D3%26applied_value_id%3D2230284%26applied_value_name%3DNuevo%26applied_value_order%3D1%26applied_value_results%3D171%26is_custom%3Dfalse')
     
     time.sleep(3)
@@ -137,7 +137,7 @@ def webScrapping(producto):
     arregloPortales = [amazon, mercado]
 
     rating = (arregloPortales[0][0] + arregloPortales[1][0])/2
-    price = max((arregloPortales[0][1]*4), arregloPortales[1][1] )
+    price = min(arregloPortales[0][1], arregloPortales[1][1] )
     if(arregloPortales[0][1] > arregloPortales[1][1]):
         URL = arregloPortales[1][2]
     else:
