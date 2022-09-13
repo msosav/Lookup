@@ -11,23 +11,25 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-#Busqueda en amazon
+# Busqueda en amazon
+
+
 def busqueda_amazon(producto):
     options = Options()
-    options.headless = True 
+    options.headless = True
     service = Service(executable_path=ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service,options=options )
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(f'https://www.amazon.com/s?k={producto}')
-    
-    
+
     """
     Obtencion URL del primer producto
     """
     try:
-        driver.find_element(By.XPATH, "//span[@class='a-size-medium a-color-base a-text-normal']").click()
+        driver.find_element(
+            By.XPATH, "//span[@class='a-size-medium a-color-base a-text-normal']").click()
     except NoSuchElementException:
-        driver.find_element(By.XPATH, "//span[@class='a-size-base-plus a-color-base a-text-normal']").click()
-
+        driver.find_element(
+            By.XPATH, "//span[@class='a-size-base-plus a-color-base a-text-normal']").click()
 
     get_url = driver.current_url
     driver.quit()
@@ -45,7 +47,6 @@ def busqueda_amazon(producto):
     time.sleep(3)
     soup = BeautifulSoup(webpage.content, "lxml")
 
-
     """
     Se busca el precio
     """
@@ -55,41 +56,38 @@ def busqueda_amazon(producto):
     except AttributeError:
         product_price_raw = "NA"
 
-    
     """
     Se busca el rating
     """
-    try: 
+    try:
         product_rating_raw = soup.find(
-            "span", {"class":"a-icon-alt"}).string.strip()
+            "span", {"class": "a-icon-alt"}).string.strip()
     except AttributeError:
-        product_rating_raw= "NA"
+        product_rating_raw = "NA"
 
     """
     Se limpian los strings resultantes
     """
     product_price = float(product_price_raw[product_price_raw.index("$") + 1:])
-    product_rating = float(product_rating_raw[0: product_rating_raw.index("d")-1])
+    product_rating = float(
+        product_rating_raw[0: product_rating_raw.index("d")-1])
 
     return product_rating, product_price, URL
 
 
-
-#Busqueda en mercadolibre
+# Busqueda en mercadolibre
 def busqueda_mercadolibre(producto):
     options = Options()
-    options.headless = True 
+    options.headless = True
     service = Service(executable_path=ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service,options=options)
+    driver = webdriver.Chrome(service=service, options=options)
     driver.get(f'https://listado.mercadolibre.com.co/{producto}_NoIndex_True#applied_filter_id%3DITEM_CONDITION%26applied_filter_name%3DCondición%26applied_filter_order%3D3%26applied_value_id%3D2230284%26applied_value_name%3DNuevo%26applied_value_order%3D1%26applied_value_results%3D171%26is_custom%3Dfalse')
-    
+
     time.sleep(3)
     """
     Obtencion URL del primer producto
     """
     driver.find_element(By.CLASS_NAME, "ui-search-item__title").click()
-
-
 
     get_url = driver.current_url
 
@@ -105,7 +103,6 @@ def busqueda_mercadolibre(producto):
     webpage = requests.get(URL, headers=HEADERS)
     time.sleep(3)
     soup = BeautifulSoup(webpage.content, "lxml")
-
 
     """
     Se busca el precio
@@ -119,16 +116,18 @@ def busqueda_mercadolibre(producto):
     """
     Se busca el rating
     """
-    product_rating_raw = driver.find_element(By.CLASS_NAME, "ui-review-view__rating__summary__average").text
+    product_rating_raw = driver.find_element(
+        By.CLASS_NAME, "ui-review-view__rating__summary__average").text
     driver.quit()
 
     """
     Se limpian los strings resultantes
     """
-    product_price = float(product_price_raw.replace(".", ""))
+    product_price = int(product_price_raw.replace(".", ""))
     product_rating = float(product_rating_raw)
 
     return product_rating, product_price, URL
+
 
 def webScrapping(producto):
     amazon = busqueda_amazon(producto)
@@ -137,11 +136,10 @@ def webScrapping(producto):
     arregloPortales = [amazon, mercado]
 
     rating = (arregloPortales[0][0] + arregloPortales[1][0])/2
-    price = max((arregloPortales[0][1]*4), arregloPortales[1][1] )
-    if(arregloPortales[0][1] > arregloPortales[1][1]):
+    price = min((arregloPortales[0][1]*4.00), arregloPortales[1][1])
+    if (arregloPortales[0][1] > arregloPortales[1][1]):
         URL = arregloPortales[1][2]
     else:
         URL = arregloPortales[0][2]
 
     return rating, price, URL
-
