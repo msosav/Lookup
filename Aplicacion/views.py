@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from scraping import getMercadoLibre
+from scraping import webScrapping
 from Aplicacion.models import Producto
 from pymongo import MongoClient
 from funciones import analiticas, productosPorCategoria, categoriaDelProducto, recomendarProducto
@@ -36,10 +36,9 @@ def productoBuscado(request):
     global top5, categorias, imagen, caracteristicas
     if request.method == 'POST':
         nombre = request.POST.get("producto_buscado").capitalize()
-        lista = getMercadoLibre(nombre)
-        rating = 4.8
-        precio = lista[1]
-        precio_final = int(precio.replace('.', ''))
+        lista = webScrapping(nombre)
+        rating = lista[0]
+        precio_final = lista[1]
         url = lista[2]
         if rating < 4.5:
             recomendado = False
@@ -63,7 +62,7 @@ def productoBuscado(request):
             return render(request, 'inicio.html', dicc)
         else:
             dicc = {"productos": top5, "nombre": nombre,
-                    "valoracion": rating, "precio": precio, "portal": url,
+                    "valoracion": rating, "precio": precio_final, "portal": url,
                     "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
             return render(request, 'inicio.html', dicc)
 
