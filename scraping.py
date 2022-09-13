@@ -72,7 +72,7 @@ def busqueda_amazon(producto):
     product_rating = float(
         product_rating_raw[0: product_rating_raw.index("d")-1])
 
-    return product_rating, product_price, URL
+    return product_rating, product_price*4000, URL
 
 
 # Busqueda en mercadolibre
