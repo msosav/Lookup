@@ -123,7 +123,7 @@ def busqueda_mercadolibre(producto):
     """
     Se limpian los strings resultantes
     """
-    product_price = int(product_price_raw.replace(".", ""))
+    product_price = float(product_price_raw.replace(".", ""))
     product_rating = float(product_rating_raw)
 
     return product_rating, product_price, URL
