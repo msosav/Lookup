@@ -1,46 +1,26 @@
-<style>
-  .container-articulos {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 3fr 3fr;
-    background-color: white;
-  }
-  .imagen-articulo {
-    width: "50";
-    height: "50";
-  }
-</style>
-
 <html>
-  <div class="container-articulos">
-    <div>
-      <h2>{{nombre}}</h2>
-      <p></p>
-      <p></p>
-      <h3>{{valoracion}} Estrellas</h3>
-      <p></p>
-      <p></p>
-      <h3>{{precio}} Pesos</h3>
-      <p></p>
-      <p></p>
-      <a href="{{portal}}">Portal web donde está mas económico</a>
-      <p></p>
-      <p></p>
-      <ul>
-        {% for c in caracteristicas %}
-        <li>{{c}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div>
-      <img
-        src="{{imagen}}"
-        alt="imagen del producto"
-        width="500px"
-        height="500px"
-      />
+  <div class="container">
+    <div class="card mb-3" style="width: auto;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{imagen}}" class="img-fluid rounded-start" alt="..." />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{nombre}}</h5>
+            <h4 class="card-subtitle">{{precio}}</h4>
+            <h4 class="card-subtitle">{{valoracion}}</h4>
+            <a href="{{portal}}">Portal web donde está mas económico</a>
+            <p class="card-text">
+              <ul>
+                {% for c in caracteristicas %}
+                <li>{{c}}</li>
+                {% endfor %}
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </html>

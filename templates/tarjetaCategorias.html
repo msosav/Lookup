@@ -15,9 +15,20 @@
 <html>
   <div class="container-categorias">
     {% for producto in productos_de_la_categoria %}
-    <span style="padding: 10px">
-      <div class="container-producto">{{producto}}</div></span
-    >
+    <span style="padding: 10px; color: black">
+      <div class="card" style="width: 18rem">
+        <img
+          src="https://forbes.es/wp-content/uploads/2022/08/Never-Gonna-Give-You-Up-Rick-Astley.jpg"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{producto}}</h5>
+          <a href="#" class="btn btn-primary">Cómprame</a>
+        </div>
+      </div>
+    </span>
+
     {% endfor %}
   </div>
 </html>
