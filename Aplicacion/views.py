@@ -8,7 +8,7 @@ from funciones import analiticas, buscarProducto, informacionDElProducto, produc
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
 db = cluster["lookup"]
-collection = db["productos"]
+collection = db["Aplicacion_producto"]
 
 # Create your views here.
 
@@ -16,11 +16,6 @@ collection = db["productos"]
 top5 = analiticas()
 categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
 imagen = "https://m.media-amazon.com/images/I/613AVx005lL._AC_SX522_.jpg"
-caracteristicas = ["Pantalla Super Retina XDR de 6,1 pulgadas",
-                   "El modo Cine añade poca profundidad de campo y cambia el enfoque automáticamente en los vídeos",
-                   "Sistema avanzado de cámara dual de 12 Mpx con gran angular y ultra gran angular",
-                   "Estilos Fotográficos, HDR Inteligente 4",
-                   "modo Noche y grabación de vídeo en 4K HDR con Dolby Vision"]
 
 
 def inicio(request):
@@ -59,12 +54,14 @@ def productoBuscado(request):
                 imagen2 = lista[4]
                 dicc = {"productos": top5, "nombre2": nombre2,
                         "valoracion2": rating2, "precio2": precio2, "portal2": url2,
-                        "imagen2": imagen2, "caracteristicas2": caracteristicas, "categorias": categorias}
+                        "imagen2": imagen2, "categorias": categorias, "nombre": nombre,
+                        "valoracion": rating, "precio": precio_final, "portal": url,
+                        "imagen": imagen}
                 return render(request, 'inicio.html', dicc)
             else:
                 dicc = {"productos": top5, "nombre": nombre,
                         "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
+                        "imagen": imagen, "categorias": categorias}
                 return render(request, 'inicio.html', dicc)
         else:
             lista = informacionDElProducto(nombre)
@@ -84,12 +81,14 @@ def productoBuscado(request):
                 imagen2 = lista[4]
                 dicc = {"productos": top5, "nombre2": nombre2,
                         "valoracion2": rating2, "precio2": precio2, "portal2": url2,
-                        "imagen2": imagen2, "caracteristicas2": caracteristicas, "categorias": categorias}
+                        "imagen2": imagen2, "categorias": categorias, "nombre": nombre,
+                        "valoracion": rating, "precio": precio_final, "portal": url,
+                        "imagen": imagen}
                 return render(request, 'inicio.html', dicc)
             else:
                 dicc = {"productos": top5, "nombre": nombre,
                         "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "caracteristicas": caracteristicas, "categorias": categorias}
+                        "imagen": imagen, "categorias": categorias}
                 return render(request, 'inicio.html', dicc)
 
 
