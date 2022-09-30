@@ -2,7 +2,7 @@ from pymongo import MongoClient
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
 db = cluster["lookup"]
-collection = db["Aplicacion_producto"]
+collection = db["productos"]
 
 
 def analiticas():
@@ -58,3 +58,18 @@ def recomendarProducto(categoria, precio):
                             productos["rating"], productos["url"],
                             productos["imagen"])
     return "No hay productos que recomendar"
+
+
+def buscarProducto(nombre):
+    for productos in collection.find():
+        if productos["nombre"] == nombre:
+            return True
+    return False
+
+
+def informacionDElProducto(nombre):
+    for productos in collection.find():
+        if productos["nombre"] == nombre:
+            return (productos["rating"],
+                    productos["price"], productos["url"],
+                    productos["imagen"])

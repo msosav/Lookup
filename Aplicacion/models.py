@@ -1,4 +1,3 @@
-from email.policy import default
 from django.db import models
 
 # Create your models here.
@@ -6,7 +5,7 @@ from django.db import models
 
 class Producto (models.Model):
     nombre = models.CharField(max_length=50)
-    price = models.IntegerField()
+    precio = models.IntegerField()
     rating = models.FloatField()
     recomendado = models.BooleanField(default=True)
     categoria = models.CharField(max_length=50, default="N/A")

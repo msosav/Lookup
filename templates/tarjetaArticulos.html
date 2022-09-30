@@ -1,6 +1,6 @@
 <html>
   <div class="container">
-    <div class="card mb-3" style="width: auto;">
+    <div class="card mb-3" style="width: auto">
       <div class="row g-0">
         <div class="col-md-4">
           <img src="{{imagen}}" class="img-fluid rounded-start" alt="..." />
@@ -11,13 +11,6 @@
             <h4 class="card-subtitle">{{precio}}</h4>
             <h4 class="card-subtitle">{{valoracion}}</h4>
             <a href="{{portal}}">Portal web donde está mas económico</a>
-            <p class="card-text">
-              <ul>
-                {% for c in caracteristicas %}
-                <li>{{c}}</li>
-                {% endfor %}
-              </ul>
-            </p>
           </div>
         </div>
       </div>
