@@ -10,7 +10,7 @@
 <style>
   .buscador {
     font-size: large;
-    height: 100vh;
+    padding: 5px;
   }
   .container-busqueda {
     padding: 20px;
@@ -24,47 +24,44 @@
   .container-busqueda input {
     border: 1px solid black;
   }
-  .boton-de-busqueda {
-    border-radius: 5px;
-  }
   .titulo {
     font-size: 7ch;
     color: white;
   }
-  .container-busqueda-y-titulo {
-    display: grid;
-    grid-template-columns: 2.2fr 3fr;
-  }
 </style>
 <html>
-  <div class="buscador">
+  <div class="container buscador">
     <div class="container-busqueda">
-      <div class="container-busqueda-y-titulo">
-        <h1 class="titulo" style="font-weight: bold">
-          Buscar art&iacute;culos
-        </h1>
-        <form action="{% url 'producto' %}" method="POST">
-          {% csrf_token %}
-          <div class="container-form">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                id="autoSizingInput"
-                placeholder="Introduce el artículo a buscar, ej. iPhone 13"
-                name="producto_buscado"
-              />
-              <button type="submit" class="boton-de-busqueda">
-                <img src="{% static 'images/iconoBusqueda.svg'%}" alt="" />
-              </button>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-xl-5">
+            <h1 class="titulo" style="font-weight: bold">
+              Buscar art&iacute;culos
+            </h1>
           </div>
-        </form>
-      </div>
-      <div>
-        {% if nombre2 %} {% include 'recomendacionDeArticulos.html' %} {%endif%}
-        {% if nombre %} {% include 'tarjetaArticulos.html' %} {% endif%}
+          <div class="col-md-6 col-xl-7">
+            <form action="{% url 'producto' %}" method="POST">
+              {% csrf_token %}
+              <div class="container-form">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="autoSizingInput"
+                    placeholder="Introduce el artículo a buscar, ej. iPhone 13"
+                    name="producto_buscado"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div>
+          {% if nombre2 %} {% include 'articuloBuenoYArcticuloMalo.html' %} {% endif %} 
+          {% if nombre %} {% include 'tarjetaArticulos.html' %}{% endif %}
+        </div>
       </div>
     </div>
   </div>
+  <div></div>
 </html>

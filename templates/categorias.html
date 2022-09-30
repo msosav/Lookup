@@ -19,7 +19,7 @@
   }
 </style>
 <html>
-  <div class="categorias">
+  <div class="container categorias">
     <form action="{% url 'categoria' %}" method="POST">
       {% csrf_token %}
       <select class="form-select" name="categorias">
