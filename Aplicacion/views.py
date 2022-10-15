@@ -2,7 +2,7 @@ from django.shortcuts import render
 from scraping import webScrapping
 from Aplicacion.models import Producto
 from pymongo import MongoClient
-from funciones import analiticas, buscarProducto, informacionDElProducto, productosPorCategoria, categoriaDelProducto, recomendarProducto
+from funciones import analiticas, buscarProducto, informacionDElProducto, categoriaDelProducto, recomendarProducto
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -94,15 +94,3 @@ def productoBuscado(request):
 
 def confirmacion(request):
     return render(request, 'confirmacion.html')
-
-
-def categoriaBuscada(request):
-    top5 = analiticas()
-    categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
-    if request.method == 'POST':
-        categoria = request.POST.get("categorias")
-    productos = productosPorCategoria(categoria)
-    dicc = {"productos_de_la_categoria": productos,
-            "categoria": categoria, "categorias": categorias,
-            "productos": top5}
-    return render(request, 'paginaDeCategorias.html', dicc)
