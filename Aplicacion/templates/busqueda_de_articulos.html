@@ -57,8 +57,15 @@
           </div>
         </div>
         <div>
-          {% if nombre2 %} {% include 'articulo_bueno_articulo_malo.html' %} {% endif %} 
-          {% if nombre %} {% include 'tarjeta_articulos.html' %}{% endif %}
+          {% if nombre2 %} 
+          <h2 style="color: white;">El artículo buscado no es del todo bueno...</h2>
+          <p style="color: gray;">
+            Por eso te recomendamos este otro artículo (además del que ya buscaste) ;)
+          </p>
+          {% include 'articulo_bueno_articulo_malo.html' %} 
+          {% else %} 
+          {% include 'tarjeta_articulos.html' %}
+          {% endif %} 
         </div>
       </div>
     </div>
