@@ -2,7 +2,7 @@ from pymongo import MongoClient
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
 db = cluster["lookup"]
-collection = db["Aplicacion_producto"]
+collection = db["productos"]
 
 
 def analiticas():

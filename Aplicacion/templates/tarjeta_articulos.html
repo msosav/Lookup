@@ -7,10 +7,25 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{nombre}}</h5>
+            <h4 class="card-title">{{nombre}}</h4>
             <h4 class="card-subtitle">{{precio}}</h4>
             <h4 class="card-subtitle">{{valoracion}}</h4>
             <a href="{{portal}}">Portal web donde está mas económico</a>
+            <p></p>
+            {% if primer_comentario %}
+            <h4 class="card-subtitle">Comentarios relevantes</h4>
+            <div class="card">
+              <div class="card-body">
+                {{primer_comentario}}
+              </div>
+            </div>
+            <p></p>
+            <div class="card">
+              <div class="card-body">
+                {{segundo_comentario}}
+              </div>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>

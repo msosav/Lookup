@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from categorias.views import categoriaBuscada
-from Aplicacion.views import confirmacion, historial, inicio, productoBuscado
+from Aplicacion.views import confirmacion, historial, inicio, productoBuscado, prueba, prueba2
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('confirmacion/', confirmacion),
     path('categoria/', categoriaBuscada, name="categoria"),
     path('producto/', productoBuscado, name="producto"),
+    path('prueba/', prueba, name="prueba"),
+    path('prueba2/', prueba2, name="prueba2"),
 ]
