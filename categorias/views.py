@@ -12,4 +12,4 @@ def categoriaBuscada(request):
     dicc = {"productos_de_la_categoria": productos,
             "categoria": categoria, "categorias": categorias,
             "productos": top5}
-    return render(request, 'paginaDeCategorias.html', dicc)
+    return render(request, 'pagina_de_categorias.html', dicc)
