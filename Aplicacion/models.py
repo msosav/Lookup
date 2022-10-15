@@ -11,3 +11,5 @@ class Producto (models.Model):
     categoria = models.CharField(max_length=50, default="N/A")
     url = models.CharField(max_length=200, default="N/A")
     imagen = models.CharField(max_length=200, default="N/A")
+    primer_comentario = models.CharField(max_length=200, default="N/A")
+    segundo_comentario = models.CharField(max_length=200, default="N/A")
