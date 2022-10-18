@@ -79,6 +79,7 @@ def productoBuscado(request):
             primer_comentario = lista[4]
             segundo_comentario = lista[5]
             rating_modelo = lista[6]
+            categoria_final = lista[7]
             if rating < 4.5:
                 recomendado = False
             else:

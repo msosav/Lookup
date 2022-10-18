@@ -52,7 +52,7 @@ def categoriaDelProducto(nombre):
 def recomendarProducto(categoria, precio):
     for productos in collection.find():
         if productos["categoria"] == categoria:
-            if (productos["price"] <= precio + 700):
+            if (productos["precio"] <= precio + 700):
                 if (productos["recomendado"] == True):
                     return (productos["nombre"], productos["precio"],
                             productos["rating"], productos["url"],
@@ -73,4 +73,5 @@ def informacionDElProducto(nombre):
             return (productos["rating"],
                     productos["precio"], productos["url"],
                     productos["imagen"], productos["primer_comentario"],
-                    productos["segundo_comentario"], productos["rating_modelo"])
+                    productos["segundo_comentario"], productos["rating_modelo"],
+                    productos["categoria"])
