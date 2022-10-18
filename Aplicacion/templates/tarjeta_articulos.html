@@ -8,8 +8,11 @@
         <div class="col-md-8">
           <div class="card-body">
             <h4 class="card-title">{{nombre}}</h4>
-            <h4 class="card-subtitle">{{precio}}</h4>
-            <h4 class="card-subtitle">{{valoracion}}</h4>
+            <h4 class="card-subtitle">{{precio}} pesos</h4>
+            <h4 class="card-subtitle">{{valoracion}} estrellas</h4>
+            {% if rating_modelo %}
+              <h5 class="card-subtitle">{{rating_modelo}} <span style="font-weight:lighter;">(rating comentarios)</span></h5>
+            {% endif %}
             <a href="{{portal}}">Portal web donde está mas económico</a>
             <p></p>
             {% if primer_comentario %}

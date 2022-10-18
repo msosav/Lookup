@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
-db = cluster["lookup"]
-collection = db["productos"]
+db = cluster["productos"]
+collection = db["Aplicacion_producto"]
 
 
 def analiticas():
@@ -27,7 +27,7 @@ def productosPorCategoria(categoria):
 
 
 def categoriaDelProducto(nombre):
-    electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
+    electronicos = ["iphone", "samsung", "moto", "hp", "asus", "airpods"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
     categorias = [electronicos, electrodomesticos, hogar]
@@ -52,7 +52,7 @@ def categoriaDelProducto(nombre):
 def recomendarProducto(categoria, precio):
     for productos in collection.find():
         if productos["categoria"] == categoria:
-            if (productos["price"] <= precio + 700):
+            if (productos["precio"] <= precio + 700):
                 if (productos["recomendado"] == True):
                     return (productos["nombre"], productos["precio"],
                             productos["rating"], productos["url"],
@@ -72,4 +72,6 @@ def informacionDElProducto(nombre):
         if productos["nombre"] == nombre:
             return (productos["rating"],
                     productos["precio"], productos["url"],
-                    productos["imagen"])
+                    productos["imagen"], productos["primer_comentario"],
+                    productos["segundo_comentario"], productos["rating_modelo"],
+                    productos["categoria"])

@@ -7,8 +7,8 @@ from funciones import analiticas, buscarProducto, informacionDElProducto, catego
 # Se conecta a la base de datos
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
-db = cluster["lookup"]
-collection = db["productos"]
+db = cluster["productos"]
+collection = db["Aplicacion_producto"]
 
 # Create your views here.
 
@@ -36,15 +36,19 @@ def productoBuscado(request):
             rating = float(lista[0])
             precio_final = lista[1]
             url = lista[2]
+            rating_modelo = lista[3]
+            primer_comentario = lista[4][0]
+            segundo_comentario = lista[4][1]
             if rating < 4.5:
                 recomendado = False
             else:
                 recomendado = True
             categoria_final = categoriaDelProducto(nombre)
-            p = Producto(nombre=nombre, price=precio_final,
+            p = Producto(nombre=nombre, precio=precio_final,
                          rating=rating, recomendado=recomendado,
                          categoria=categoria_final, url=url, imagen=imagen,
-                         primer_comentario=primer_comentario, segundo_comentario=segundo_comentario)
+                         primer_comentario=primer_comentario, segundo_comentario=segundo_comentario,
+                         rating_modelo=rating_modelo)
             p.save()
             if (recomendado == False):
                 lista = recomendarProducto(categoria_final, precio_final)
@@ -62,13 +66,20 @@ def productoBuscado(request):
             else:
                 dicc = {"productos": top5, "nombre": nombre,
                         "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "categorias": categorias}
+                        "imagen": imagen, "categorias": categorias,
+                        "primer_comentario": primer_comentario, "segundo_comentario": segundo_comentario,
+                        "rating_modelo": rating_modelo}
                 return render(request, 'inicio.html', dicc)
         else:
             lista = informacionDElProducto(nombre)
             rating = lista[0]
             precio_final = lista[1]
             url = lista[2]
+            imagen = lista[3]
+            primer_comentario = lista[4]
+            segundo_comentario = lista[5]
+            rating_modelo = lista[6]
+            categoria_final = lista[7]
             if rating < 4.5:
                 recomendado = False
             else:
@@ -89,7 +100,9 @@ def productoBuscado(request):
             else:
                 dicc = {"productos": top5, "nombre": nombre,
                         "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "categorias": categorias}
+                        "imagen": imagen, "categorias": categorias,
+                        "primer_comentario": primer_comentario, "segundo_comentario": segundo_comentario,
+                        "rating_modelo": rating_modelo}
                 return render(request, 'inicio.html', dicc)
 
 
