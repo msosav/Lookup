@@ -30,7 +30,7 @@ def historial(request):
 def productoBuscado(request):
     global top5, categorias, imagen, caracteristicas
     if request.method == 'POST':
-        nombre = request.POST.get("producto_buscado")
+        nombre = request.POST.get("producto_buscado").capitalize()
         if buscarProducto(nombre) == False:
             lista = webScrapping(nombre)
             rating = float(lista[0])
@@ -65,7 +65,7 @@ def productoBuscado(request):
                 dicc = {"productos": top5, "nombre": nombre,
                         "valoracion": rating, "precio": precio_final, "portal": url,
                         "imagen": imagen, "categorias": categorias,
-                        "primer_comentario":primer_comentario, "segundo_comentario":segundo_comentario}
+                        "primer_comentario": primer_comentario, "segundo_comentario": segundo_comentario}
                 return render(request, 'inicio.html', dicc)
         else:
             lista = informacionDElProducto(nombre)
