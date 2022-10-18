@@ -72,4 +72,5 @@ def informacionDElProducto(nombre):
         if productos["nombre"] == nombre:
             return (productos["rating"],
                     productos["precio"], productos["url"],
-                    productos["imagen"])
+                    productos["imagen"], productos["primer_comentario"],
+                    productos["segundo_comentario"], productos["rating_modelo"])

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 
 # Create your models here.
@@ -13,3 +14,4 @@ class Producto (models.Model):
     imagen = models.CharField(max_length=200, default="N/A")
     primer_comentario = models.CharField(max_length=200, default="N/A")
     segundo_comentario = models.CharField(max_length=200, default="N/A")
+    rating_modelo = models.FloatField(default=0.0)
