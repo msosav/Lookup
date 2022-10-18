@@ -7,8 +7,8 @@ from funciones import analiticas, buscarProducto, informacionDElProducto, catego
 # Se conecta a la base de datos
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
-db = cluster["lookup"]
-collection = db["productos"]
+db = cluster["productos"]
+collection = db["Aplicacion_producto"]
 
 # Create your views here.
 

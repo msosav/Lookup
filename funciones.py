@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 cluster = MongoClient(
     "mongodb+srv://sergiocordobam:12345@cluster0.qbfcw.mongodb.net/test")
-db = cluster["lookup"]
-collection = db["productos"]
+db = cluster["productos"]
+collection = db["Aplicacion_producto"]
 
 
 def analiticas():
@@ -27,7 +27,7 @@ def productosPorCategoria(categoria):
 
 
 def categoriaDelProducto(nombre):
-    electronicos = ["iphone", "samsung", "moto", "hp", "asus","airpods"]
+    electronicos = ["iphone", "samsung", "moto", "hp", "asus", "airpods"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
     categorias = [electronicos, electrodomesticos, hogar]
