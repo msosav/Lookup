@@ -63,8 +63,10 @@
             Por eso te recomendamos este otro artículo (además del que ya buscaste) ;)
           </p>
           {% include 'articulo_bueno_articulo_malo.html' %} 
-          {% else %} 
+          {% else %}
+          {% if nombre %} 
           {% include 'tarjeta_articulos.html' %}
+          {% endif %}
           {% endif %} 
         </div>
       </div>

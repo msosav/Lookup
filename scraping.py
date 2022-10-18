@@ -116,7 +116,7 @@ def busqueda_amazon(producto):
         soup = BeautifulSoup(webpage.content, "lxml")
         rev_data = reviews_amazon(soup)
         numPags = numPags + 1
-        if (numPags == 6):
+        if (numPags == 2):
             break
 
         for i in rev_data:

@@ -27,7 +27,7 @@ def productosPorCategoria(categoria):
 
 
 def categoriaDelProducto(nombre):
-    electronicos = ["iphone", "samsung", "moto", "hp", "asus"]
+    electronicos = ["iphone", "samsung", "moto", "hp", "asus","airpods"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
     categorias = [electronicos, electrodomesticos, hogar]
