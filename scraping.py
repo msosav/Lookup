@@ -135,7 +135,7 @@ def busqueda_amazon(producto):
     """
     Se limpian los strings resultantes
     """
-    product_price = float(product_price_raw[product_price_raw.index("$") + 1:])
+    product_price = int(product_price_raw[product_price_raw.index("$") + 1:product_price_raw.index(".")])
     product_rating = float(
         product_rating_raw[0: product_rating_raw.index("d")-1])
 
@@ -203,7 +203,7 @@ def busqueda_mercadolibre(producto):
     """
     Se limpian los strings resultantes
     """
-    product_price = float(product_price_raw.replace(".", ""))
+    product_price = int(product_price_raw.replace(".", ""))
     product_rating = float(product_rating_raw[0:3])
 
     rev_data = reviews_mercado(soup)

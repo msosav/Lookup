@@ -36,12 +36,14 @@ def productoBuscado(request):
             rating = float(lista[0])
             precio_final = lista[1]
             url = lista[2]
+            primer_comentario = lista[4][0]
+            segundo_comentario = lista[4][1]
             if rating < 4.5:
                 recomendado = False
             else:
                 recomendado = True
             categoria_final = categoriaDelProducto(nombre)
-            p = Producto(nombre=nombre, price=precio_final,
+            p = Producto(nombre=nombre, precio=precio_final,
                          rating=rating, recomendado=recomendado,
                          categoria=categoria_final, url=url, imagen=imagen,
                          primer_comentario=primer_comentario, segundo_comentario=segundo_comentario)
