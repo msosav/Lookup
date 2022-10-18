@@ -8,5 +8,3 @@ def procesamiento(texto: str):
         return True
     else:
         return False 
-
-print(procesamiento(""))

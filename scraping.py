@@ -259,5 +259,3 @@ def webScrapping(producto):
         URL = arregloPortales[0][2]
 
     return rating, price, URL, reviewRating, comentariosRating
-
-print(webScrapping("iphone 12"))
