@@ -2,7 +2,7 @@ from django.shortcuts import render
 from scraping import webScrapping
 from Aplicacion.models import Producto
 from pymongo import MongoClient
-from funciones import analiticas, buscarProducto, informacionDElProducto, categoriaDelProducto, recomendarProducto
+from funciones import analiticas, buscar_producto, informacion_del_producto, categoria_del_producto, recomendar_producto
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -30,115 +30,91 @@ def historial(request):
 def productoBuscado(request):
     global top5, categorias, imagen, caracteristicas
     if request.method == 'POST':
-        nombre = request.POST.get("producto_buscado").capitalize()
-        if buscarProducto(nombre) == False:
-            lista = webScrapping(nombre)
-            rating = float(lista[0])
-            precio_final = lista[1]
-            url = lista[2]
-            rating_modelo = lista[3]
-            primer_comentario = lista[4][0]
-            segundo_comentario = lista[4][1]
-            if rating < 4.5:
-                recomendado = False
-            else:
-                recomendado = True
-            categoria_final = categoriaDelProducto(nombre)
-            p = Producto(nombre=nombre, precio=precio_final,
-                         rating=rating, recomendado=recomendado,
-                         categoria=categoria_final, url=url, imagen=imagen,
-                         primer_comentario=primer_comentario, segundo_comentario=segundo_comentario,
-                         rating_modelo=rating_modelo)
-            p.save()
-            if (recomendado == False):
-                lista = recomendarProducto(categoria_final, precio_final)
-                nombre2 = lista[0]
-                precio2 = lista[1]
-                rating2 = lista[2]
-                url2 = lista[3]
-                imagen2 = lista[4]
-                dicc = {"productos": top5, "nombre2": nombre2,
-                        "valoracion2": rating2, "precio2": precio2, "portal2": url2,
-                        "imagen2": imagen2, "categorias": categorias, "nombre": nombre,
-                        "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen}
-                return render(request, 'inicio.html', dicc)
-            else:
-                dicc = {"productos": top5, "nombre": nombre,
-                        "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "categorias": categorias,
-                        "primer_comentario": primer_comentario, "segundo_comentario": segundo_comentario,
-                        "rating_modelo": rating_modelo}
-                return render(request, 'inicio.html', dicc)
+        nombreProductoBuscado = request.POST.get(
+            "producto_buscado").capitalize()
+        if buscar_producto(nombreProductoBuscado) == False:
+            context = crear_producto(nombreProductoBuscado)
         else:
-            lista = informacionDElProducto(nombre)
-            rating = lista[0]
-            precio_final = lista[1]
-            url = lista[2]
-            imagen = lista[3]
-            primer_comentario = lista[4]
-            segundo_comentario = lista[5]
-            rating_modelo = lista[6]
-            categoria_final = lista[7]
-            if rating < 4.5:
-                recomendado = False
-            else:
-                recomendado = True
-            if (recomendado == False):
-                lista = recomendarProducto(categoria_final, precio_final)
-                nombre2 = lista[0]
-                precio2 = lista[1]
-                rating2 = lista[2]
-                url2 = lista[3]
-                imagen2 = lista[4]
-                dicc = {"productos": top5, "nombre2": nombre2,
-                        "valoracion2": rating2, "precio2": precio2, "portal2": url2,
-                        "imagen2": imagen2, "categorias": categorias, "nombre": nombre,
-                        "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen}
-                return render(request, 'inicio.html', dicc)
-            else:
-                dicc = {"productos": top5, "nombre": nombre,
-                        "valoracion": rating, "precio": precio_final, "portal": url,
-                        "imagen": imagen, "categorias": categorias,
-                        "primer_comentario": primer_comentario, "segundo_comentario": segundo_comentario,
-                        "rating_modelo": rating_modelo}
-                return render(request, 'inicio.html', dicc)
+            context = buscar_producto(nombreProductoBuscado)
+        return render(request, 'inicio.html', context)
+    return render(request, 'inicio.html', context)
+
+
+def crear_producto(nombreProductoBuscado):
+    lista = webScrapping(nombreProductoBuscado)
+    ratingProductoBuscado = float(lista[0])
+    precioProductoBuscado = lista[1]
+    urlProductoBuscado = lista[2]
+    ratingModeloProductoBuscado = lista[3]
+    primerComentarioProductoBuscado = lista[4][0]
+    segundoComentarioProductoBuscado = lista[4][1]
+    if ratingProductoBuscado < 4.5:
+        recomendado = False
+    else:
+        recomendado = True
+    categoriaFinal = categoria_del_producto(nombreProductoBuscado)
+    producto = Producto(nombre=nombreProductoBuscado, precio=precioProductoBuscado,
+                        rating=ratingProductoBuscado, recomendado=recomendado,
+                        categoria=categoriaFinal, url=urlProductoBuscado, imagen=imagen,
+                        primer_comentario=primerComentarioProductoBuscado, segundo_comentario=segundoComentarioProductoBuscado,
+                        rating_modelo=ratingModeloProductoBuscado)
+    producto.save()
+    if (recomendado == False):
+        context = producto_recomendado(categoriaFinal, precioProductoBuscado, nombreProductoBuscado,
+                                       ratingProductoBuscado, urlProductoBuscado)
+    else:
+        context = {"productos": top5, "nombre": nombreProductoBuscado,
+                   "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
+                   "imagen": imagen, "categorias": categorias,
+                   "primer_comentario": primerComentarioProductoBuscado, "segundo_comentario": segundoComentarioProductoBuscado,
+                   "rating_modelo": ratingModeloProductoBuscado}
+
+    return context
+
+
+def producto_recomendado(categoriaFinal, precioProductoBuscado, nombreProductoBuscado,
+                         ratingProductoBuscado, urlProductoBuscado):
+    lista = recomendar_producto(
+        categoriaFinal, precioProductoBuscado)
+    nombreProductoRecomendado = lista[0]
+    precioProductoRecomendado = lista[1]
+    ratingProductoRecomendado = lista[2]
+    urlProductoRecomendado = lista[3]
+    imagenProductoRecomendado = lista[4]
+    context = {"productos": top5, "nombre2": nombreProductoRecomendado,
+               "valoracion2": ratingProductoRecomendado, "precio2": precioProductoRecomendado,
+               "portal2": urlProductoRecomendado, "imagen2": imagenProductoRecomendado,
+               "categorias": categorias, "nombre": nombreProductoBuscado,
+               "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
+               "imagen": imagen}
+    return context
+
+
+def buscar_producto(nombreProductoBuscado):
+    lista = informacion_del_producto(nombreProductoBuscado)
+    ratingProductoBuscado = lista[0]
+    precioProductoBuscado = lista[1]
+    urlProductoBuscado = lista[2]
+    imagen = lista[3]
+    primerComentarioProductoBuscado = lista[4]
+    segundoComentarioProductoBuscado = lista[5]
+    ratingModeloProductoBuscado = lista[6]
+    categoriaFinal = lista[7]
+    if ratingProductoBuscado < 4.5:
+        recomendado = False
+    else:
+        recomendado = True
+    if (recomendado == False):
+        context = producto_recomendado(categoriaFinal, precioProductoBuscado,
+                                       nombreProductoBuscado, ratingProductoBuscado, urlProductoBuscado)
+    else:
+        context = {"productos": top5, "nombre": nombreProductoBuscado,
+                   "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
+                   "imagen": imagen, "categorias": categorias,
+                   "primer_comentario": primerComentarioProductoBuscado, "segundo_comentario": segundoComentarioProductoBuscado,
+                   "rating_modelo": ratingModeloProductoBuscado}
+    return context
 
 
 def confirmacion(request):
     return render(request, 'confirmacion.html')
-
-
-def prueba(request):
-    global top5, categorias, imagen
-    nombre = "IPhone 13"
-    precio_final = 3000000
-    rating = 3.5
-    url = "google.com"
-    nombre2 = "IPhone 12"
-    precio2 = 2500000
-    rating2 = 4.5
-    url2 = "yahoo.com"
-    imagen2 = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fonecomm.bm%2Fwp-content%2Fuploads%2F2021%2F01%2FScreen-Shot-2021-01-29-at-11.23.16-AM.jpg&f=1&nofb=1&ipt=146bbfae91ebd63bb4336e2e1f6418de317565fd292fb5a1afe0a1e5d2c5ddb6&ipo=images"
-    dicc = {"productos": top5, "nombre2": nombre2,
-            "valoracion2": rating2, "precio2": precio2, "portal2": url2,
-            "imagen2": imagen2, "categorias": categorias, "nombre": nombre,
-            "valoracion": rating, "precio": precio_final, "portal": url,
-            "imagen": imagen}
-    return render(request, 'inicio.html', dicc)
-
-
-def prueba2(request):
-    global top5, categorias, imagen
-    nombre = "IPhone 13"
-    precio_final = 3000000
-    rating = 3.5
-    url = "google.com"
-    primer_comentario = "Muy bueno, me encantó"
-    segundo_comentario = "Muy bueno, muy fácil de usar"
-    dicc = {"productos": top5, "categorias": categorias, "nombre": nombre,
-            "valoracion": rating, "precio": precio_final, "portal": url,
-            "imagen": imagen, "primer_comentario": primer_comentario,
-            "segundo_comentario": segundo_comentario}
-    return render(request, 'inicio.html', dicc)

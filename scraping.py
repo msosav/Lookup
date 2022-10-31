@@ -14,6 +14,7 @@ from lenguaje_natural import procesamiento
 
 from lenguaje_natural import procesamiento
 
+
 def reviews_amazon(soup):
     data_str = ""
 
@@ -23,15 +24,18 @@ def reviews_amazon(soup):
     result = data_str.split("\n")
     return (result)
 
+
 def reviews_mercado(soup):
     data_str = ""
-  
-    for item in soup.find_all("p" ,class_="ui-review-capability-comments__comment__content"):
+
+    for item in soup.find_all("p", class_="ui-review-capability-comments__comment__content"):
         data_str = data_str + item.get_text()
     result = soup
     result = data_str.split("\n")
     return (result)
 # Busqueda en amazon
+
+
 def busqueda_amazon(producto):
     options = Options()
     options.headless = True
@@ -51,7 +55,6 @@ def busqueda_amazon(producto):
             By.XPATH, '//*[@id="search"]/div[1]/div[1]/div/span[3]/div[2]/div[4]/div/div/div/div/div[2]/div[4]/div/a/span/span[2]/span[2]').click()
 
     get_url = driver.current_url
-    
 
     """
     Creacion header
@@ -87,23 +90,23 @@ def busqueda_amazon(producto):
     if (product_rating_raw == "NA"):
         try:
             product_rating_raw = soup.find(
-            "span", {"data-hook": "acr-average-stars-rating-text"}).string.strip()
+                "span", {"data-hook": "acr-average-stars-rating-text"}).string.strip()
         except AttributeError:
             pass
 
-    #reviews
+    # reviews
     rev_result = []
     condicion = False
     try:
         driver.find_element(
-                By.PARTIAL_LINK_TEXT, 'Ver todas las opiniones').click()
+            By.PARTIAL_LINK_TEXT, 'Ver todas las opiniones').click()
         condicion = True
-        
+
     except NoSuchElementException:
         pass
-    
+
     numPags = 0
-    while(condicion):
+    while (condicion):
         URL = driver.current_url
 
         URL = get_url
@@ -126,21 +129,21 @@ def busqueda_amazon(producto):
                 rev_result.append(i)
         try:
             driver.find_element(
-            By.PARTIAL_LINK_TEXT, 'Página siguiente').click()
+                By.PARTIAL_LINK_TEXT, 'Página siguiente').click()
         except NoSuchElementException:
             break
-        
+
     driver.quit()
 
     """
     Se limpian los strings resultantes
     """
-    product_price = int(product_price_raw[product_price_raw.index("$") + 1:product_price_raw.index(".")])
+    product_price = int(product_price_raw[product_price_raw.index(
+        "$") + 1:product_price_raw.index(".")])
     product_rating = float(
         product_rating_raw[0: product_rating_raw.index("d")-1])
 
     return product_rating, product_price*4000, URL, rev_result
-
 
 
 # Busqueda en mercadolibre
@@ -156,7 +159,7 @@ def busqueda_mercadolibre(producto):
     Obtencion URL del primer producto
     """
     driver.find_element(By.CLASS_NAME, "ui-search-item__title").click()
-       
+
     get_url = driver.current_url
 
     """
@@ -185,11 +188,10 @@ def busqueda_mercadolibre(producto):
     Se busca el rating
     """
     #driver.find_element(By.CLASS_NAME, "ui-pdp-review__ratings").click()
-    #time.sleep(3)
+    # time.sleep(3)
     product_rating_raw = driver.find_element(
         By.CLASS_NAME, 'ui-review-capability__rating').text
 
-    
     driver.find_element(
         By.XPATH, '/html/body/div[2]/div[1]/div[2]/button[1]').click()
 
@@ -197,7 +199,7 @@ def busqueda_mercadolibre(producto):
         By.CLASS_NAME, 'show-more-click').click()
 
     time.sleep(3)
-    
+
     driver.quit()
 
     """
@@ -217,7 +219,7 @@ def busqueda_mercadolibre(producto):
     return product_rating, product_price, URL, rev_result
 
 
-def webScrapping(producto):
+def web_scrapping(producto):
     amazon = busqueda_amazon(producto)
     mercado = busqueda_mercadolibre(producto)
 
@@ -229,7 +231,7 @@ def webScrapping(producto):
     reviewsSize = len(reviews)
     contBuenos = 0
     contMalos = 0
-    
+
     topComments = ["", "", "", ""]
 
     for comentario in reviews:
@@ -244,14 +246,13 @@ def webScrapping(producto):
             contMalos = contMalos + 1
 
     reviewRating = (5/reviewsSize)*contBuenos
-    
+
     if rating > 4.5:
-        comentariosRating = [topComments[0] , topComments[1]]
+        comentariosRating = [topComments[0], topComments[1]]
     elif rating > 3.8:
-        comentariosRating = [topComments[0] , topComments[2]]
+        comentariosRating = [topComments[0], topComments[2]]
     else:
         comentariosRating = [topComments[2],  topComments[3]]
-
 
     if (arregloPortales[0][1] > arregloPortales[1][1]):
         URL = arregloPortales[1][2]
