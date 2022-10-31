@@ -27,7 +27,7 @@ def historial(request):
     return render(request, 'historial.html')
 
 
-def productoBuscado(request):
+def producto_buscado(request):
     global top5, categorias, imagen, caracteristicas
     if request.method == 'POST':
         nombreProductoBuscado = request.POST.get(
