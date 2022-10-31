@@ -95,7 +95,7 @@ def busqueda_amazon(producto):
             pass
 
     # reviews
-    rev_result = []
+    reviews_result = []
     condicion = False
     try:
         driver.find_element(
@@ -117,16 +117,16 @@ def busqueda_amazon(producto):
         webpage = requests.get(URL, headers=HEADERS)
         time.sleep(3)
         soup = BeautifulSoup(webpage.content, "lxml")
-        rev_data = reviews_amazon(soup)
+        reviews_data = reviews_amazon(soup)
         numPags = numPags + 1
         if (numPags == 2):
             break
 
-        for i in rev_data:
+        for i in reviews_data:
             if i == "":
                 pass
             else:
-                rev_result.append(i)
+                reviews_result.append(i)
         try:
             driver.find_element(
                 By.PARTIAL_LINK_TEXT, 'Página siguiente').click()
@@ -143,7 +143,7 @@ def busqueda_amazon(producto):
     product_rating = float(
         product_rating_raw[0: product_rating_raw.index("d")-1])
 
-    return product_rating, product_price*4000, URL, rev_result
+    return product_rating, product_price*4000, URL, reviews_result
 
 
 # Busqueda en mercadolibre
@@ -208,15 +208,15 @@ def busqueda_mercadolibre(producto):
     product_price = int(product_price_raw.replace(".", ""))
     product_rating = float(product_rating_raw[0:3])
 
-    rev_data = reviews_mercado(soup)
-    rev_result = []
-    for i in rev_data:
+    reviews_data = reviews_mercado(soup)
+    reviews_result = []
+    for i in reviews_data:
         if i == "":
             pass
         else:
-            rev_result.append(i)
+            reviews_result.append(i)
 
-    return product_rating, product_price, URL, rev_result
+    return product_rating, product_price, URL, reviews_result
 
 
 def web_scrapping(producto):
