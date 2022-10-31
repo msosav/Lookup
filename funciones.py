@@ -17,7 +17,7 @@ def analiticas():
     return top_5
 
 
-def productosPorCategoria(categoria):
+def productos_por_categoria(categoria):
     lista = []
     for documentos in collection.find():
         if documentos["categoria"] == categoria:
@@ -26,7 +26,7 @@ def productosPorCategoria(categoria):
     return lista
 
 
-def categoriaDelProducto(nombre):
+def categoria_del_producto(nombre):
     electronicos = ["iphone", "samsung", "moto", "hp", "asus", "airpods"]
     electrodomesticos = ["televisor", "plancha", "nevera", "ventilador"]
     hogar = ["silla", "mesa", "cama"]
@@ -49,7 +49,7 @@ def categoriaDelProducto(nombre):
     return categoria_final
 
 
-def recomendarProducto(categoria, precio):
+def recomendar_producto(categoria, precio):
     for productos in collection.find():
         if productos["categoria"] == categoria:
             if (productos["precio"] <= precio + 700):
@@ -60,14 +60,14 @@ def recomendarProducto(categoria, precio):
     return "No hay productos que recomendar"
 
 
-def buscarProducto(nombre):
+def buscar_producto_en_BD(nombre):
     for productos in collection.find():
         if productos["nombre"] == nombre:
             return True
     return False
 
 
-def informacionDElProducto(nombre):
+def informacion_del_producto(nombre):
     for productos in collection.find():
         if productos["nombre"] == nombre:
             return (productos["rating"],
