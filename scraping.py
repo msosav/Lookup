@@ -229,23 +229,23 @@ def web_scrapping(producto):
     price = min(arregloPortales[0][1], arregloPortales[1][1])
     reviews = arregloPortales[0][3] + arregloPortales[1][3]
     reviewsSize = len(reviews)
-    contBuenos = 0
-    contMalos = 0
+    contComentariosBuenos = 0
+    contadorComentariosMalos = 0
 
     topComments = ["", "", "", ""]
 
     for comentario in reviews:
-        buenoOMalo = procesamiento(comentario)
-        if (buenoOMalo):
-            if contBuenos <= 1:
-                topComments[contBuenos] = comentario
-            contBuenos = contBuenos + 1
+        comentarioBuenoOMalo = procesamiento(comentario)
+        if (comentarioBuenoOMalo):
+            if contComentariosBuenos <= 1:
+                topComments[contComentariosBuenos] = comentario
+            contComentariosBuenos = contComentariosBuenos + 1
         else:
-            if contMalos <= 1:
-                topComments[contMalos+2] = comentario
-            contMalos = contMalos + 1
+            if contadorComentariosMalos <= 1:
+                topComments[contadorComentariosMalos+2] = comentario
+            contadorComentariosMalos = contadorComentariosMalos + 1
 
-    reviewRating = (5/reviewsSize)*contBuenos
+    reviewRating = (5/reviewsSize)*contComentariosBuenos
 
     if rating > 4.5:
         comentariosRating = [topComments[0], topComments[1]]
