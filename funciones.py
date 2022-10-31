@@ -60,7 +60,7 @@ def recomendar_producto(categoria, precio):
     return "No hay productos que recomendar"
 
 
-def buscar_producto(nombre):
+def buscar_producto_en_BD(nombre):
     for productos in collection.find():
         if productos["nombre"] == nombre:
             return True

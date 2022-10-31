@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from scraping import webScrapping
+from scraping import web_scrapping
 from Aplicacion.models import Producto
 from pymongo import MongoClient
-from funciones import analiticas, buscar_producto, informacion_del_producto, categoria_del_producto, recomendar_producto
+from funciones import analiticas, buscar_producto_en_BD, informacion_del_producto, categoria_del_producto, recomendar_producto
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -32,7 +32,7 @@ def producto_buscado(request):
     if request.method == 'POST':
         nombreProductoBuscado = request.POST.get(
             "producto_buscado").capitalize()
-        if buscar_producto(nombreProductoBuscado) == False:
+        if buscar_producto_en_BD(nombreProductoBuscado) == False:
             context = crear_producto(nombreProductoBuscado)
         else:
             context = buscar_producto(nombreProductoBuscado)
@@ -41,7 +41,7 @@ def producto_buscado(request):
 
 
 def crear_producto(nombreProductoBuscado):
-    lista = webScrapping(nombreProductoBuscado)
+    lista = web_scrapping(nombreProductoBuscado)
     ratingProductoBuscado = float(lista[0])
     precioProductoBuscado = lista[1]
     urlProductoBuscado = lista[2]
