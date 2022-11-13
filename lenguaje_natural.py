@@ -1,4 +1,3 @@
-import requests
 from transformers import pipeline
 def procesamiento(texto: str):
     sentiment_pipeline = pipeline("sentiment-analysis")
