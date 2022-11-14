@@ -7,10 +7,30 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h4 class="card-title">{{nombre2}} <span style="font-weight:lighter;">(recomendado)</span></h4>
+            <h3 class="card-title">
+              {{nombre2}}
+              <span style="font-weight: lighter">(recomendado)</span>
+            </h3>
             <h4 class="card-subtitle">{{precio2}} pesos</h4>
             <h4 class="card-subtitle">{{valoracion2}} estrellas</h4>
+            {% if rating_modelo2 %}
+            <h5 class="card-subtitle">
+              {{rating_modelo2}}
+              <span style="font-weight: lighter">(rating comentarios)</span>
+            </h5>
+            {% endif %}
             <a href="{{portal2}}">Portal web donde está mas económico</a>
+            {% if primer_comentario2 %}
+            <p></p>
+            <h4 class="card-subtitle">Comentarios relevantes</h4>
+            <div class="card">
+              <div class="card-body">{{primer_comentario2}}</div>
+            </div>
+            <p></p>
+            <div class="card">
+              <div class="card-body">{{segundo_comentario2}}</div>
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>

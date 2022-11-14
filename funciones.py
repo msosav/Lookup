@@ -56,14 +56,15 @@ def recomendar_producto(categoria, precio):
                 if (productos["recomendado"] == True):
                     return (productos["nombre"], productos["precio"],
                             productos["rating"], productos["url"],
-                            productos["imagen"])
+                            productos["imagen"], productos["primer_comentario"],
+                            productos["segundo_comentario"])
     return "No hay productos que recomendar"
 
 
 def buscar_producto_en_BD(nombre):
     for productos in collection.find():
-        if productos["nombre"] == nombre:
-            return True
+        if productos["nombre"].lower().__contains__(nombre.lower()):
+            return productos["nombre"]
     return False
 
 
@@ -74,4 +75,4 @@ def informacion_del_producto(nombre):
                     productos["precio"], productos["url"],
                     productos["imagen"], productos["primer_comentario"],
                     productos["segundo_comentario"], productos["rating_modelo"],
-                    productos["categoria"])
+                    productos["categoria"], productos["nombre"])
