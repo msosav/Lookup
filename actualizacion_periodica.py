@@ -35,9 +35,10 @@ def nombre_documentos():
             }
         })    
 
-schedule.every(24).hours.do(nombre_documentos)
+def actualizacion_cada_24_horas():
+    schedule.every(24).hours.do(nombre_documentos)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 

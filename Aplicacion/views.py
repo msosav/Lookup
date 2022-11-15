@@ -3,6 +3,7 @@ from Scrapping.scraping import web_scrapping
 from Aplicacion.models import Producto
 from pymongo import MongoClient
 from funciones import analiticas, buscar_producto_en_BD, informacion_del_producto, categoria_del_producto, recomendar_producto
+from actualizacion_periodica import actualizacion_cada_24_horas
 
 # Se conecta a la base de datos
 cluster = MongoClient(
@@ -15,6 +16,7 @@ collection = db["Aplicacion_producto"]
 # Variables globales
 top5 = analiticas()
 categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
+actualizacion_cada_24_horas()
 
 
 def inicio(request):
