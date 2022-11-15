@@ -63,9 +63,17 @@
             Por eso te recomendamos este otro artículo (además del que ya buscaste) ;)
           </p>
           {% include 'articulo_bueno_articulo_malo.html' %} 
+          {% else %}          
+          {% if recomendacion %}
+          <h2 style="color: white;">El artículo buscado no es del todo bueno...</h2>
+          <p style="color: gray;">
+            Pero no tenemos otro artículo que recomendar
+          </p> 
+          {% include 'tarjeta_articulos.html' %}
           {% else %}
           {% if nombre %} 
           {% include 'tarjeta_articulos.html' %}
+          {% endif %}
           {% endif %}
           {% endif %} 
         </div>
