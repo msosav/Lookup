@@ -49,16 +49,17 @@ def categoria_del_producto(nombre):
     return categoria_final
 
 
-def recomendar_producto(categoria, precio):
+def recomendar_producto(categoria, precio, nombreProductoBuscado):
     for productos in collection.find():
         if productos["categoria"] == categoria:
             if (productos["precio"] <= precio + 700):
                 if (productos["recomendado"] == True):
-                    return (productos["nombre"], productos["precio"],
-                            productos["rating"], productos["url"],
-                            productos["imagen"], productos["primer_comentario"],
-                            productos["segundo_comentario"])
-    return "No hay productos que recomendar"
+                    if (productos["nombre"] != nombreProductoBuscado):
+                        return (productos["nombre"], productos["precio"],
+                                productos["rating"], productos["url"],
+                                productos["imagen"], productos["primer_comentario"],
+                                productos["segundo_comentario"])
+    return False
 
 
 def buscar_producto_en_BD(nombre):

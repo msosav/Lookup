@@ -88,19 +88,31 @@ def producto_recomendado(informacionProductoBuscado):
 
     # informacion del producto recomendado
     informacionProductoRecomendado = recomendar_producto(
-        categoriaFinal, precioProductoBuscado)
-    nombreProductoRecomendado = informacionProductoRecomendado[0]
-    precioProductoRecomendado = informacionProductoRecomendado[1]
-    ratingProductoRecomendado = informacionProductoRecomendado[2]
-    urlProductoRecomendado = informacionProductoRecomendado[3]
-    imagenProductoRecomendado = informacionProductoRecomendado[4]
-    context = {"productos": top5, "nombre2": nombreProductoRecomendado,
-               "valoracion2": ratingProductoRecomendado, "precio2": precioProductoRecomendado,
-               "portal2": urlProductoRecomendado, "imagen2": imagenProductoRecomendado,
-               "categorias": categorias, "nombre": nombreProductoBuscado,
-               "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
-               "imagen": imagenProductoBuscado}
-    return context
+        categoriaFinal, precioProductoBuscado, nombreProductoBuscado)
+    if informacionProductoRecomendado != False:
+        nombreProductoRecomendado = informacionProductoRecomendado[0]
+        precioProductoRecomendado = informacionProductoRecomendado[1]
+        ratingProductoRecomendado = informacionProductoRecomendado[2]
+        urlProductoRecomendado = informacionProductoRecomendado[3]
+        imagenProductoRecomendado = informacionProductoRecomendado[4]
+        primerComentarioProductoRecomendado = informacionProductoRecomendado[5]
+        segundoComentarioProductoRecomedado = informacionProductoRecomendado[6]
+        context = {"productos": top5, "nombre2": nombreProductoRecomendado,
+                   "valoracion2": ratingProductoRecomendado, "precio2": precioProductoRecomendado,
+                   "portal2": urlProductoRecomendado, "imagen2": imagenProductoRecomendado,
+                   "categorias": categorias, "nombre": nombreProductoBuscado,
+                   "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
+                   "imagen": imagenProductoBuscado, "primer_comentario": primerComentarioProductoBuscado,
+                   "segundo_comentario": segundoComentarioProductoBuscado,
+                   "primer_comentario2": primerComentarioProductoRecomendado,
+                   "segundo_comentario2": segundoComentarioProductoRecomedado}
+        return context
+    else:
+        context = {"productos": top5, "categorias": categorias, "nombre": nombreProductoBuscado,
+                   "valoracion": ratingProductoBuscado, "precio": precioProductoBuscado, "portal": urlProductoBuscado,
+                   "imagen": imagenProductoBuscado, "primer_comentario": primerComentarioProductoBuscado,
+                   "segundo_comentario": segundoComentarioProductoBuscado, "recomendacion": True}
+        return context
 
 
 def buscar_producto(nombreProductoBuscado):
