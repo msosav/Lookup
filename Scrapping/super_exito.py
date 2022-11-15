@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 def busqueda_exito(nombre):
     options = Options()
     options.headless = True
@@ -14,7 +15,7 @@ def busqueda_exito(nombre):
     nombreBarraNavegador = nombre.replace(" ", "%20")
     driver.get(
         f"https://www.exito.com/{nombreBarraNavegador}?_q={nombreBarraNavegador}&map=ft")
-    time.sleep(4)
+    time.sleep(7)
 
     producto = driver.find_element(
         By.CLASS_NAME, "vtex-product-summary-2-x-imageNormal")

@@ -16,7 +16,6 @@ collection = db["Aplicacion_producto"]
 # Variables globales
 top5 = analiticas()
 categorias = ["Electronicos", "Electrodomesticos", "Hogar"]
-actualizacion_cada_24_horas()
 
 
 def inicio(request):
