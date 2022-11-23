@@ -17,15 +17,22 @@ def busqueda_ktronix(nombre):
     nombreFinal = nombre.replace(" ", "+")
 
     driver.get(f"https://www.ktronix.com/search/?text={nombreFinal}")
-    driver.maximize_window()
-    time.sleep(2)
+    time.sleep(5)
+
+    precioDelProductoAux = driver.find_element(
+        By.CLASS_NAME, "product__price--discounts__price")
+    precioDelProducto = precioDelProductoAux.find_element(
+        By.CLASS_NAME, "price").text.strip().replace('.', '')
+    precioDelProducto = precioDelProducto.replace('$', '')
+    precioDelProducto = precioDelProducto.replace('\n', '')
+    precioDelProducto = int(precioDelProducto)
 
     driver.find_element(By.CLASS_NAME, "product__image__container").click()
 
     urlDeLaPagina = driver.current_url
 
     html_text = requests.get(urlDeLaPagina)
-    time.sleep(3)
+    time.sleep(5)
 
     soup = BeautifulSoup(html_text.text, 'lxml')
     nombreDelProducto = soup.find(
@@ -38,11 +45,6 @@ def busqueda_ktronix(nombre):
     ratingDelProducto = driver.find_element(
         By.CLASS_NAME, "yotpo-star-digits").text
     ratingDelProducto = float(ratingDelProducto)
-
-    precioDelProducto = soup.find(
-        "span", class_="font-title--product-price").string.strip().replace('.', '')
-    precioDelProducto = precioDelProducto.replace('$', '')
-    precioDelProducto = int(precioDelProducto)
 
     tablaComentarios = driver.find_element(By.CLASS_NAME, "yotpo-reviews")
     bancoDeComentarios = tablaComentarios.find_elements(

@@ -27,6 +27,15 @@ def web_scrapping(producto):
 
     comentariosRelevantesAux = ["", "", "", ""]
 
+    portalesWeb = comprobarProducto(producto.lower(), portalesWeb)
+
+    infoProducto = precioMenor(portalesWeb)
+    print(infoProducto)
+    nombreDelProducto = infoProducto[0]
+    imagenDelProducto = infoProducto[1]
+    urlDelProducto = infoProducto[2]
+    precioDelProducto = infoProducto[3]
+
     for comentario in comentarios:
         buenoOMalo = procesamiento(comentario)
         if (buenoOMalo):
@@ -50,18 +59,43 @@ def web_scrapping(producto):
         comentariosRelevantes = [
             comentariosRelevantesAux[2],  comentariosRelevantesAux[3]]
 
-    if (portalesWeb[0][3] == precioDelProducto):
+    return (nombreDelProducto, imagenDelProducto, urlDelProducto, precioDelProducto,
+            ratingDelProducto, ratingDeLosComentarios, comentariosRelevantes)
+
+
+def precioMenor(portalesWeb):
+    if len(portalesWeb) == 1:
         urlDelProducto = portalesWeb[0][2]
         imagenDelProducto = portalesWeb[0][1]
         nombreDelProducto = portalesWeb[0][0]
-    elif (portalesWeb[1][3] == precioDelProducto):
-        urlDelProducto = portalesWeb[1][2]
-        imagenDelProducto = portalesWeb[1][1]
-        nombreDelProducto = portalesWeb[1][0]
-    else:
-        urlDelProducto = portalesWeb[2][2]
-        imagenDelProducto = portalesWeb[2][1]
-        nombreDelProducto = portalesWeb[2][0]
+        precioDelProducto = portalesWeb[0][3]
+        return (nombreDelProducto, imagenDelProducto, urlDelProducto, precioDelProducto)
+    for portal in range(len(portalesWeb)):
+        if portal == 0:
+            urlDelProducto = portalesWeb[0][2]
+            imagenDelProducto = portalesWeb[0][1]
+            nombreDelProducto = portalesWeb[0][0]
+            precioDelProducto = portalesWeb[0][3]
+        elif portalesWeb[portal][3] < portalesWeb[portal-1][3]:
+            urlDelProducto = portalesWeb[portal][2]
+            imagenDelProducto = portalesWeb[portal][1]
+            nombreDelProducto = portalesWeb[portal][0]
+            precioDelProducto = portalesWeb[portal][3]
+    return (nombreDelProducto, imagenDelProducto, urlDelProducto, precioDelProducto)
 
-    return (nombreDelProducto, imagenDelProducto, urlDelProducto, precioDelProducto,
-            ratingDelProducto, ratingDeLosComentarios, comentariosRelevantes)
+
+def comprobarProducto(producto, portalesWeb):
+    lista = []
+    for portal in portalesWeb:
+        if (portal[0].lower().__contains__(producto)):
+            if (producto.lower().__contains__("accesorio") or
+                producto.lower().__contains__("carcasa") or
+                    producto.lower().__contains__("cargador")):
+                lista.append(portal)
+            elif (portal[0].lower().__contains__("accesorio") or
+                  portal[0].lower().__contains__("carcasa") or
+                  portal[0].lower().__contains__("cargador")):
+                pass
+            else:
+                lista.append(portal)
+    return lista
